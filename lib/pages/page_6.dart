@@ -1,190 +1,155 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_app/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
-class Page6 extends StatelessWidget {
+class SmsVerificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-    Container(
-      decoration: BoxDecoration(
-        color: Color(0xFFFFFFFF),
-      ),
-      child: Stack(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 90),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF4B3832),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(34.5, 135, 34.5, 80),
-                      child: Text(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          color: Color(0xFFFFFFFF),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 0,
+                top: 0,
+                right: 0,
+                child: Container(
+                  color: Color(0xFF4B3832),
+                  padding: EdgeInsets.fromLTRB(20, 60, 20, 70),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Добро пожаловать в',
+                        style: GoogleFonts.getFont(
+                          'Roboto Condensed',
+                          fontWeight: FontWeight.w800,
+                          fontSize: 32,
+                          color: Color(0xFFFFFFFF),
+                        ),
+                      ),
+                      Text(
                         'Coffee club',
                         style: GoogleFonts.getFont(
                           'Sanchez',
                           fontWeight: FontWeight.w400,
                           fontSize: 60,
-                          height: 1,
                           color: Color(0xFFFFF4E6),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 99, 30),
-                  child: Text(
-                    'Введите SMS код',
-                    style: GoogleFonts.getFont(
-                      'Roboto Condensed',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 32,
-                      height: 1,
-                      color: Color(0xFF4B3832),
-                    ),
-                  ),
+              ),
+              Positioned(
+                top: 180,
+                child: SvgPicture.asset(
+                  'assets/vectors/container_x2.svg',
+                  width: MediaQuery.of(context).size.width,
+                  height: 165.5,
                 ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 1, 40),
-                  child: SizedBox(
-                    width: 190,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              Positioned(
+                right: 0,
+                top: 140,
+                child: Image.asset(
+                  'assets/images/image_15.png',
+                  width: 180,
+                  height: 195,
+                ),
+              ),
+              Positioned(
+                right: 130,
+                top: 230,
+                child: SvgPicture.asset(
+                  'assets/vectors/star_11_x2.svg',
+                  width: 11,
+                  height: 12,
+                ),
+              ),
+              Positioned(
+                right: 50,
+                top: 180,
+                child: SvgPicture.asset(
+                  'assets/vectors/star_2_x2.svg',
+                  width: 14,
+                  height: 15,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(31.2, 380, 30.5, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFFF4E6),
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            padding: EdgeInsets.fromLTRB(10, 32.5, 10, 6.5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFBE9B7B),
-                              ),
-                              child: Container(
-                                width: 20,
-                                height: 1,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFFF4E6),
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            padding: EdgeInsets.fromLTRB(10, 32, 10, 7),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFBE9B7B),
-                              ),
-                              child: Container(
-                                width: 20,
-                                height: 1,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFFF4E6),
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            padding: EdgeInsets.fromLTRB(10, 32, 10, 7),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFBE9B7B),
-                              ),
-                              child: Container(
-                                width: 20,
-                                height: 1,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFFF4E6),
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            padding: EdgeInsets.fromLTRB(10, 32, 10, 7),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFBE9B7B),
-                              ),
-                              child: Container(
-                                width: 20,
-                                height: 1,
-                              ),
-                            ),
+                        Text(
+                          'Введите SMS код',
+                          style: GoogleFonts.getFont(
+                            'Roboto Condensed',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 32,
+                            color: Color(0xFF4B3832),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(31, 0, 31, 0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFF4B3832),
-                      borderRadius: BorderRadius.circular(10),
+                    SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      child: PinCodeTextField(
+                        appContext: context,
+                        length: 4,
+                        onChanged: (value) {},
+                        pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.box,
+                          borderRadius: BorderRadius.circular(11),
+                          fieldHeight: 50,
+                          fieldWidth: 50,
+                          activeFillColor: Color(0xFFFFF4E6),
+                          inactiveFillColor: Color(0xFFFFF4E6),
+                          selectedFillColor: Color(0xFFFFF4E6),
+                          activeColor: Color(0xFFFFF4E6),
+                          inactiveColor: Color(0xFFFFF4E6),
+                          selectedColor: Color(0xFFFFF4E6),
+                        ),
+                        textStyle: TextStyle(
+                          fontSize: 24,
+                          color: Color(0xFFBE9B7B),
+                        ),
+                        keyboardType: TextInputType.number,
+                        enableActiveFill: true,
+                      ),
                     ),
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(0, 11, 0, 10),
-                      child: Text(
-                        'Подтвердить',
-                        style: GoogleFonts.getFont(
-                          'Roboto Condensed',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          decoration: TextDecoration.underline,
-                          height: 1,
-                          color: Color(0xFFFFF4E6),
-                          decorationColor: Color(0xFFFFF4E6),
+                    SizedBox(height: 30),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF4B3832),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Подтвердить',
+                          style: GoogleFonts.getFont(
+                            'Roboto Condensed',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Color(0xFFFFF4E6),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          Positioned(
-            left: 0,
-            top: 196.5,
-            child: SizedBox(
-              width: 392.5,
-              height: 165.5,
-              child: SvgPicture.asset(
-                'assets/vectors/rectangle_1481_x2.svg',
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
