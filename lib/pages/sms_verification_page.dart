@@ -1,9 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/page_2.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/backend/auth/auth_service.dart';
+import 'package:flutter_app/pages/page.dart'; // Adjust the import based on your project structure
 
-class SmsVerificationPage extends StatelessWidget {
+class SmsVerificationPage extends StatefulWidget {
+  final String phone;
+
+  SmsVerificationPage({required this.phone});
+
+  @override
+  _SmsVerificationPageState createState() => _SmsVerificationPageState();
+}
+
+class _SmsVerificationPageState extends State<SmsVerificationPage> {
+  final TextEditingController _otpController = TextEditingController();
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
+
+  void _verifyOtp() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final tokens =
+          await _authService.verifyOtp(widget.phone, _otpController.text);
+
+      // Save tokens securely
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('access_token', tokens['access']!);
+      await prefs.setString('refresh_token', tokens['refresh']!);
+
+      // Navigate to the next page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Page2()),
+      );
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to verify OTP')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,47 +148,56 @@ class SmsVerificationPage extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: PinCodeTextField(
                         appContext: context,
-                        length: 4,
+                        length: 6,
+                        controller: _otpController,
                         onChanged: (value) {},
                         pinTheme: PinTheme(
                           shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(11),
-                          fieldHeight: 50,
+                          borderRadius: BorderRadius.circular(5),
+                          fieldHeight: 60,
                           fieldWidth: 50,
-                          activeFillColor: Color(0xFFFFF4E6),
-                          inactiveFillColor: Color(0xFFFFF4E6),
-                          selectedFillColor: Color(0xFFFFF4E6),
-                          activeColor: Color(0xFFFFF4E6),
-                          inactiveColor: Color(0xFFFFF4E6),
-                          selectedColor: Color(0xFFFFF4E6),
+                          activeFillColor: Colors.white,
+                          inactiveFillColor: Color(0xFFEEEEEE),
+                          selectedFillColor: Colors.white,
+                          activeColor: Color(0xFF4B3832),
+                          inactiveColor: Color(0xFFCCCCCC),
+                          selectedColor: Color(0xFF4B3832),
                         ),
                         textStyle: TextStyle(
                           fontSize: 24,
-                          color: Color(0xFFBE9B7B),
+                          color: Color(0xFF4B3832),
                         ),
                         keyboardType: TextInputType.number,
                         enableActiveFill: true,
                       ),
                     ),
                     SizedBox(height: 30),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF4B3832),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Подтвердить',
-                          style: GoogleFonts.getFont(
-                            'Roboto Condensed',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Color(0xFFFFF4E6),
-                          ),
+                    GestureDetector(
+                      onTap: _verifyOtp,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF4B3832),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: _isLoading
+                              ? CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(0xFFFFF4E6)),
+                                )
+                              : Text(
+                                  'Подтвердить',
+                                  style: GoogleFonts.getFont(
+                                    'Roboto Condensed',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                    color: Color(0xFFFFF4E6),
+                                  ),
+                                ),
                         ),
                       ),
                     ),

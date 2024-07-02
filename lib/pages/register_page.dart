@@ -1,11 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_app/backend/auth/auth_service.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'sms_verification_page.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _nameFocusNode = FocusNode();
-  final _phoneEmailFocusNode = FocusNode();
-  final _passwordFocusNode = FocusNode();
+  final _phoneFocusNode = FocusNode();
+  bool _isLoading = false;
+
+  final AuthService _authService = AuthService();
+
+  // Mask formatter for Kazakhstan phone number format
+  final _phoneMaskFormatter = MaskTextInputFormatter(
+    mask: '+7##########',
+    filter: {"#": RegExp(r'[0-9]')},
+    initialText: '+7',
+  );
+
+  void _sendOtp() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await _authService.sendOtp(_phoneController.text, _nameController.text);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SmsVerificationPage(
+            phone: _phoneController.text,
+          ),
+        ),
+      );
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to send OTP')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,14 +147,19 @@ class RegisterPage extends StatelessWidget {
                             color: Color(0xFF4B3832),
                           ),
                         ),
-                        Text(
-                          'Войти',
-                          style: GoogleFonts.getFont(
-                            'Roboto Condensed',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 20,
-                            decoration: TextDecoration.underline,
-                            color: Color(0xFFBE9B7B),
+                        GestureDetector(
+                          onTap: () {
+                            // Navigate to login page if implemented
+                          },
+                          child: Text(
+                            'Войти',
+                            style: GoogleFonts.getFont(
+                              'Roboto Condensed',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              decoration: TextDecoration.underline,
+                              color: Color(0xFFBE9B7B),
+                            ),
                           ),
                         ),
                       ],
@@ -123,48 +174,15 @@ class RegisterPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(11),
                       ),
                       child: TextField(
+                        controller: _nameController,
                         focusNode: _nameFocusNode,
                         textInputAction: TextInputAction.next,
                         onSubmitted: (_) {
-                          FocusScope.of(context)
-                              .requestFocus(_phoneEmailFocusNode);
+                          FocusScope.of(context).requestFocus(_phoneFocusNode);
                         },
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           hintText: 'Ваше имя:',
-                          hintStyle: GoogleFonts.getFont(
-                            'Roboto Condensed',
-                            fontWeight: FontWeight.w300,
-                            fontSize: 16,
-                            color: Color(0xFF4B3832).withOpacity(0.6),
-                          ),
-                        ),
-                        style: GoogleFonts.getFont(
-                          'Roboto Condensed',
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                          color: Color(0xFF4B3832),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 16),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 11, vertical: 1),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFFF4E6),
-                        borderRadius: BorderRadius.circular(11),
-                      ),
-                      child: TextField(
-                        focusNode: _phoneEmailFocusNode,
-                        textInputAction: TextInputAction.next,
-                        onSubmitted: (_) {
-                          FocusScope.of(context)
-                              .requestFocus(_passwordFocusNode);
-                        },
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Номер телефона или email:',
                           hintStyle: GoogleFonts.getFont(
                             'Roboto Condensed',
                             fontWeight: FontWeight.w300,
@@ -189,11 +207,14 @@ class RegisterPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(11),
                       ),
                       child: TextField(
-                        focusNode: _passwordFocusNode,
+                        controller: _phoneController,
+                        focusNode: _phoneFocusNode,
                         textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [_phoneMaskFormatter],
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          hintText: 'Придумайте пароль:',
+                          hintText: 'Номер телефона:',
                           hintStyle: GoogleFonts.getFont(
                             'Roboto Condensed',
                             fontWeight: FontWeight.w300,
@@ -207,24 +228,31 @@ class RegisterPage extends StatelessWidget {
                           fontSize: 16,
                           color: Color(0xFF4B3832),
                         ),
-                        obscureText: true,
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        color: Color(0xFF4B3832),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Получить SMS код',
-                          style: GoogleFonts.getFont(
-                            'Roboto Condensed',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Color(0xFFFFF4E6),
-                          ),
+                    GestureDetector(
+                      onTap: _sendOtp,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF4B3832),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Center(
+                          child: _isLoading
+                              ? CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Color(0xFFFFF4E6)),
+                                )
+                              : Text(
+                                  'Получить SMS код',
+                                  style: GoogleFonts.getFont(
+                                    'Roboto Condensed',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                    color: Color(0xFFFFF4E6),
+                                  ),
+                                ),
                         ),
                       ),
                     ),
