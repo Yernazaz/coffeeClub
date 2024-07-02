@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:flutter_app/pages/notifications_promotions.dart';
 import 'package:flutter_app/pages/owner_promo_publishing.dart';
 import 'package:flutter_app/pages/owner_subscription_management.dart';
@@ -15,7 +15,15 @@ import 'package:flutter_app/pages/qr_code.dart';
 import 'package:flutter_app/pages/qr_code_1.dart';
 import 'package:flutter_app/pages/settings.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -23,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Coffee App',
       home: Scaffold(
         // body: NotificationsPromotions(),
         // body: OwnerPromoPublishing(),
