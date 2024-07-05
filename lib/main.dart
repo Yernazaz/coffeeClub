@@ -8,6 +8,7 @@ import 'package:flutter_app/pages/qr_code.dart';
 import 'package:flutter_app/pages/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/pages/coffee_map.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -81,28 +82,48 @@ class _MainPageState extends State<MainPage> {
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: SvgPicture.asset(
+              'assets/vectors/home.svg',
+              width: 24,
+              height: 24,
+            ),
             label:
                 'Главное', // Still provide a label for accessibility purposes
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code),
+            icon: SvgPicture.asset(
+              'assets/vectors/qrcode.svg',
+              width: 24,
+              height: 24,
+            ),
             label: 'Карта', // Still provide a label for accessibility purposes
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.folder_zip),
+            icon: SvgPicture.asset(
+              'assets/vectors/thunder.svg',
+              width: 24,
+              height: 24,
+            ),
             label:
                 'QR Code', // Still provide a label for accessibility purposes
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+            icon: SvgPicture.asset(
+              'assets/vectors/bell.svg',
+              width: 24,
+              height: 24,
+            ),
             label:
                 'Лучшие кофейни', // Still provide a label for accessibility purposes
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
+            icon: SvgPicture.asset(
+              'assets/vectors/settings.svg',
+              width: 24,
+              height: 24,
+            ),
             label:
                 'Уведомления', // Still provide a label for accessibility purposes
           ),

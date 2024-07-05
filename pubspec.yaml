@@ -28,6 +28,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/vectors/home.svg
+    - assets/vectors/MAP.svg
+    - assets/vectors/qrcode.svg
+    - assets/vectors/settings.svg
+    - assets/vectors/thunder.svg
+    - assets/vectors/bell.svg
     - assets/vectors/group_2_x2.svg
     - assets/vectors/group_4_x2.svg
     - assets/vectors/group_21_x2.svg
