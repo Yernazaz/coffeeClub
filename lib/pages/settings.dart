@@ -1,379 +1,202 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_app/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Settings extends StatelessWidget {
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(CoffeeClubApp());
+  });
+}
+
+class CoffeeClubApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-    Container(
-      decoration: BoxDecoration(
-        color: Color(0xFFFFF4E6),
-      ),
-      child: Container(
-        padding: EdgeInsets.fromLTRB(0, 62.9, 1, 0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(34.9, 0, 34.9, 55.9),
-              width: 40.3,
-              height: 40.3,
-              child: SizedBox(
-                width: 40.3,
-                height: 40.3,
-                child: SvgPicture.asset(
-                  'assets/vectors/vector_29_x2.svg',
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(29, 0, 29, 29),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 6, 0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFD9D9D9),
-                          borderRadius: BorderRadius.circular(36.5),
-                        ),
-                        child: Container(
-                          height: 73,
-                        ),
-                      ),
-                    ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SettingsPage(),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFF6E5CE),
+      body: Column(
+        children: [
+          SizedBox(height: 60), // Add a SizedBox to create the top margin
+          AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Coffee club',
+                  style: GoogleFonts.getFont(
+                    'Sanchez',
+                    fontWeight: FontWeight.w400,
+                    fontSize: 48,
+                    height: 1,
+                    color: Color(0xFF4B3832),
                   ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(0, 4, 0, 2),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFFFFFF),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(11, 17, 14, 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                                child: Align(
-                                  alignment: Alignment.topLeft,
+                ),
+                SizedBox(width: 16), // Adjust the width as needed
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 20),
+                  width: 46,
+                  child: SvgPicture.asset(
+                    'assets/vectors/vector_29_x2.svg',
+                  ),
+                ),
+              ],
+            ),
+            centerTitle: true,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.grey,
+                        radius: 30,
+                      ),
+                      SizedBox(width: 16), // Adjust the space between avatar and card
+                      Expanded(
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Алиса'),
+                                Text('+77777777777'),
+                                Align(
+                                  alignment: Alignment.centerRight,
                                   child: Text(
-                                    'Алиса',
+                                    'ред.',
                                     style: GoogleFonts.getFont(
                                       'Roboto Condensed',
                                       fontWeight: FontWeight.w600,
                                       fontSize: 16,
-                                      height: 1,
                                       color: Color(0xFF000000),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(0, 0, 8, 7),
-                                    child: SizedBox(
-                                      width: 193,
-                                      child: Text(
-                                        '+77777777777',
-                                        style: GoogleFonts.getFont(
-                                          'Roboto Condensed',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16,
-                                          height: 1,
-                                          color: Color(0xFF000000),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
-                                    child: Text(
-                                      'ред.',
-                                      style: GoogleFonts.getFont(
-                                        'Roboto Condensed',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                        height: 1,
-                                        color: Color(0xFF000000),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  ListTile(
+                    title: Text('Поддержка'),
+                    onTap: () {},
+                    tileColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  ListTile(
+                    title: Text('Настройки'),
+                    onTap: () {},
+                    tileColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  ListTile(
+                    trailing: SvgPicture.asset(
+                      'assets/vectors/group_3_x2.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                    title: Text('Инструменты для владельца кафе'),
+                    onTap: () {},
+                    tileColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  ListTile(
+                    trailing: SvgPicture.asset(
+                      'assets/vectors/vector_16_x2.svg',
+                      width: 24,
+                      height: 24,
+                    ),
+                    title: Text('Инструменты для кафе-бариста'),
+                    onTap: () {},
+                    tileColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  ListTile(
+                    title: Text('Менеджер кофейни'),
+                    onTap: () {},
+                    tileColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  ListTile(
+                    title: Text('Администратор кофейни'),
+                    onTap: () {},
+                    tileColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
                 ],
               ),
             ),
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 0, 29, 12),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 11, 10, 15),
-                  child: Text(
-                    'Поддержка',
-                    style: GoogleFonts.getFont(
-                      'Inter',
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
-                      height: 1,
-                      color: Color(0xFF000000),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(32, 0, 29, 179),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 11, 10, 15),
-                  child: Text(
-                    'Настройки',
-                    style: GoogleFonts.getFont(
-                      'Inter',
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
-                      height: 1,
-                      color: Color(0xFF000000),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 0, 29, 9),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 6.4, 11.9, 7.4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 6.6, 7, 5.6),
-                        child: SizedBox(
-                          width: 274.9,
-                          child: Text(
-                            'Инструменты для владельца кафе',
-                            style: GoogleFonts.getFont(
-                              'Inter',
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14,
-                              height: 1,
-                              color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 29.2,
-                        height: 26.2,
-                        child: SizedBox(
-                          width: 29.2,
-                          height: 26.2,
-                          child: SvgPicture.asset(
-                            'assets/vectors/group_3_x2.svg',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 0, 29, 9),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(5.3, 10, 15, 12.5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 2, 7, 1.5),
-                        child: SizedBox(
-                          width: 280.7,
-                          child: Text(
-                            'Инструменты для кафе-бариста',
-                            style: GoogleFonts.getFont(
-                              'Inter',
-                              fontWeight: FontWeight.w300,
-                              fontSize: 14,
-                              height: 1,
-                              color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 25,
-                        height: 17.5,
-                        child: SvgPicture.asset(
-                          'assets/vectors/vector_16_x2.svg',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 0, 29, 9),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 13, 10, 13),
-                  child: Text(
-                    'Менеджер кофейни',
-                    style: GoogleFonts.getFont(
-                      'Inter',
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
-                      height: 1,
-                      color: Color(0xFF000000),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(30, 0, 29, 42),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 16),
-                  child: Text(
-                    'Администратор кофейни',
-                    style: GoogleFonts.getFont(
-                      'Inter',
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
-                      height: 1,
-                      color: Color(0xFF000000),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-              ),
-              child: SizedBox(
-                width: 393,
-                child: Container(
-                  padding: EdgeInsets.fromLTRB(21, 22, 28.3, 36),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0.3, 0, 0.3),
-                        width: 42,
-                        height: 32.4,
-                        child: SizedBox(
-                          width: 42,
-                          height: 32.4,
-                          child: SvgPicture.asset(
-                            'assets/vectors/vector_25_x2.svg',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                        child: SizedBox(
-                          width: 32,
-                          height: 32,
-                          child: SvgPicture.asset(
-                            'assets/vectors/vector_115_x2.svg',
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 27,
-                        height: 33,
-                        child: SvgPicture.asset(
-                          'assets/vectors/vector_55_x2.svg',
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 0.4, 0, 0.1),
-                        width: 30.5,
-                        height: 32.5,
-                        child: SizedBox(
-                          width: 30.5,
-                          height: 32.5,
-                          child: SvgPicture.asset(
-                            'assets/vectors/vector_9_x2.svg',
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 1.3, 0, 0.3),
-                        width: 31.5,
-                        height: 31.5,
-                        child: SizedBox(
-                          width: 31.5,
-                          height: 31.5,
-                          child: SvgPicture.asset(
-                            'assets/vectors/vector_x2.svg',
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/vectors/vector_25_x2.svg', width: 24, height: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/vectors/vector_115_x2.svg', width: 24, height: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/vectors/vector_55_x2.svg', width: 24, height: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/vectors/vector_9_x2.svg', width: 24, height: 24),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset('assets/vectors/vector_x2.svg', width: 24, height: 24),
+            label: '',
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.brown,
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
       ),
     );
   }
