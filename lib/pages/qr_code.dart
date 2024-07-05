@@ -7,8 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 class QrCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-    Container(
+    return Container(
       decoration: BoxDecoration(
         color: Color(0xFFFFF4E6),
       ),
@@ -59,77 +58,6 @@ class QrCode extends StatelessWidget {
                 child: Container(
                   width: 249,
                   height: 232,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xFFFFFFFF),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10),
-                  topRight: Radius.circular(10),
-                ),
-              ),
-              child: Container(
-                padding: EdgeInsets.fromLTRB(21, 22, 28.3, 36),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0.3, 0, 0.3),
-                      width: 42,
-                      height: 32.4,
-                      child: SizedBox(
-                        width: 42,
-                        height: 32.4,
-                        child: SvgPicture.asset(
-                          'assets/vectors/vector_47_x2.svg',
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0, 0, 1),
-                      child: SizedBox(
-                        width: 32,
-                        height: 32,
-                        child: SvgPicture.asset(
-                          'assets/vectors/vector_80_x2.svg',
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 27,
-                      height: 33,
-                      child: SvgPicture.asset(
-                        'assets/vectors/vector_10_x2.svg',
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 0.4, 0, 0.1),
-                      width: 30.5,
-                      height: 32.5,
-                      child: SizedBox(
-                        width: 30.5,
-                        height: 32.5,
-                        child: SvgPicture.asset(
-                          'assets/vectors/vector_83_x2.svg',
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 1.3, 0, 0.3),
-                      width: 31.5,
-                      height: 31.5,
-                      child: SizedBox(
-                        width: 31.5,
-                        height: 31.5,
-                        child: SvgPicture.asset(
-                          'assets/vectors/vector_14_x2.svg',
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/page_2.dart';
+import 'package:flutter_app/pages/home_page_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/backend/auth/auth_service.dart';
-import 'package:flutter_app/pages/page.dart'; // Adjust the import based on your project structure
+import 'package:flutter_app/pages/best_places.dart'; // Adjust the import based on your project structure
 
 class SmsVerificationPage extends StatefulWidget {
   final String phone;
@@ -38,7 +38,7 @@ class _SmsVerificationPageState extends State<SmsVerificationPage> {
       // Navigate to the next page
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Page2()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } catch (e) {
       print(e);

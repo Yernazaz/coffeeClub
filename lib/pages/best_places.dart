@@ -4,11 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_app/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Page extends StatelessWidget {
+class BestPlaces extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return 
-    Container(
+    return Container(
       decoration: BoxDecoration(
         color: Color(0xFFFFF4E6),
       ),
@@ -97,11 +96,14 @@ class Page extends StatelessWidget {
                                     child: SizedBox(
                                       width: 91,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,
@@ -111,7 +113,8 @@ class Page extends StatelessWidget {
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,
@@ -121,7 +124,8 @@ class Page extends StatelessWidget {
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,
@@ -131,7 +135,8 @@ class Page extends StatelessWidget {
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,
@@ -321,11 +326,14 @@ class Page extends StatelessWidget {
                                     child: SizedBox(
                                       width: 91,
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,
@@ -335,7 +343,8 @@ class Page extends StatelessWidget {
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,
@@ -345,7 +354,8 @@ class Page extends StatelessWidget {
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,
@@ -355,7 +365,8 @@ class Page extends StatelessWidget {
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 4, 0),
+                                            margin:
+                                                EdgeInsets.fromLTRB(0, 0, 4, 0),
                                             child: SizedBox(
                                               width: 15,
                                               height: 15,

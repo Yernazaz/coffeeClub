@@ -101,6 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   'assets/vectors/container_x2.svg',
                   width: MediaQuery.of(context).size.width,
                   height: 165.5,
+                  fit: BoxFit.cover,
                 ),
               ),
               Positioned(
