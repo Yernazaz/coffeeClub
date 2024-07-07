@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/register_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
@@ -23,18 +24,50 @@ class HomePage extends StatelessWidget {
                   children: [
                     Container(
                       margin: const EdgeInsets.fromLTRB(32, 0, 32, 6),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          'Добрый день, Алиса.',
-                          style: GoogleFonts.getFont(
-                            'Roboto Condensed',
-                            fontWeight: FontWeight.w800,
-                            fontSize: 20,
-                            height: 1,
-                            color: const Color(0xFF4B3832),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Добрый день, Алиса.',
+                            style: GoogleFonts.getFont(
+                              'Roboto Condensed',
+                              fontWeight: FontWeight.w800,
+                              fontSize: 20,
+                              height: 1,
+                              color: const Color(0xFF4B3832),
+                            ),
                           ),
-                        ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => RegisterPage()),
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Color(0xFF4B3832),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: [
+                                  
+                                  Text(
+                                    'Logout',
+                                    style: GoogleFonts.getFont(
+                                      'Roboto Condensed',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      height: 1,
+                                      color: Color(0xFFFFF4E6),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Container(
@@ -80,8 +113,7 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Container(
-                          padding:
-                              const EdgeInsets.fromLTRB(7.4, 6.4, 15.4, 7.5),
+                          padding: const EdgeInsets.fromLTRB(7.4, 6.4, 15.4, 7.5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,8 +123,7 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(0, 0, 5.5, 0),
+                                    margin: const EdgeInsets.fromLTRB(0, 0, 5.5, 0),
                                     width: 21.1,
                                     height: 21.1,
                                     child: SizedBox(
@@ -104,8 +135,7 @@ class HomePage extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    margin: const EdgeInsets.fromLTRB(
-                                        0, 2.6, 0, 3.5),
+                                    margin: const EdgeInsets.fromLTRB(0, 2.6, 0, 3.5),
                                     child: Text(
                                       'Поиск...',
                                       style: GoogleFonts.getFont(
@@ -181,8 +211,7 @@ class HomePage extends StatelessWidget {
                               color: const Color(0xFFECECEC),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            padding:
-                                const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
+                            padding: const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
                             child: Text(
                               'С бонусами',
                               style: GoogleFonts.getFont(
@@ -199,8 +228,7 @@ class HomePage extends StatelessWidget {
                               color: const Color(0xFFECECEC),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            padding:
-                                const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
+                            padding: const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
                             child: Text(
                               'Избранное',
                               style: GoogleFonts.getFont(
@@ -218,13 +246,10 @@ class HomePage extends StatelessWidget {
                     FutureBuilder<List<CoffeeShop>>(
                       future: CoffeeShopsService().fetchCoffeeShops(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
-                          return const Center(
-                              child: Text('Failed to load coffee shops'));
+                          return const Center(child: Text('Failed to load coffee shops'));
                         } else if (snapshot.hasData) {
                           return ListView.builder(
                             shrinkWrap: true,
@@ -233,8 +258,7 @@ class HomePage extends StatelessWidget {
                             itemBuilder: (context, index) {
                               final coffeeShop = snapshot.data![index];
                               return Container(
-                                margin:
-                                    const EdgeInsets.fromLTRB(32, 0, 31, 13),
+                                margin: const EdgeInsets.fromLTRB(32, 0, 31, 13),
                                 decoration: BoxDecoration(
                                   color: const Color(0xFFFFFFFF),
                                   borderRadius: BorderRadius.circular(11),
@@ -244,17 +268,18 @@ class HomePage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      margin:
-                                          const EdgeInsets.fromLTRB(0, 0, 0, 6),
+                                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 6),
                                       child: Container(
                                         decoration: const BoxDecoration(
                                           borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(11),
-                                              topRight: Radius.circular(11)),
+                                            topLeft: Radius.circular(11),
+                                            topRight: Radius.circular(11),
+                                          ),
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(
-                                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s'),
+                                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s',
+                                            ),
                                           ),
                                         ),
                                         child: Container(
@@ -264,17 +289,13 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
-                                      margin: const EdgeInsets.fromLTRB(
-                                          12, 0, 12, 5),
+                                      margin: const EdgeInsets.fromLTRB(12, 0, 12, 5),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin: const EdgeInsets.fromLTRB(
-                                                0, 0, 10, 0),
+                                            margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                                             child: SizedBox(
                                               width: 152,
                                               child: Text(
@@ -284,87 +305,61 @@ class HomePage extends StatelessWidget {
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 20,
                                                   height: 1,
-                                                  color:
-                                                      const Color(0xFF000000),
+                                                  color: const Color(0xFF000000),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Container(
-                                            margin: const EdgeInsets.fromLTRB(
-                                                0, 2, 0, 3),
+                                            margin: const EdgeInsets.fromLTRB(0, 2, 0, 3),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  margin:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 0, 4, 0),
+                                                  margin: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                                                   child: SizedBox(
                                                     width: 91,
                                                     child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Container(
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .fromLTRB(
-                                                                  0, 0, 4, 0),
+                                                          margin: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
                                                             height: 15,
-                                                            child: SvgPicture
-                                                                .asset(
+                                                            child: SvgPicture.asset(
                                                               'assets/vectors/vector_56_x2.svg',
                                                             ),
                                                           ),
                                                         ),
                                                         Container(
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .fromLTRB(
-                                                                  0, 0, 4, 0),
+                                                          margin: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
                                                             height: 15,
-                                                            child: SvgPicture
-                                                                .asset(
+                                                            child: SvgPicture.asset(
                                                               'assets/vectors/vector_7_x2.svg',
                                                             ),
                                                           ),
                                                         ),
                                                         Container(
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .fromLTRB(
-                                                                  0, 0, 4, 0),
+                                                          margin: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
                                                             height: 15,
-                                                            child: SvgPicture
-                                                                .asset(
+                                                            child: SvgPicture.asset(
                                                               'assets/vectors/vector_24_x2.svg',
                                                             ),
                                                           ),
                                                         ),
                                                         Container(
-                                                          margin:
-                                                              const EdgeInsets
-                                                                  .fromLTRB(
-                                                                  0, 0, 4, 0),
+                                                          margin: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
                                                             height: 15,
-                                                            child: SvgPicture
-                                                                .asset(
+                                                            child: SvgPicture.asset(
                                                               'assets/vectors/vector_19_x2.svg',
                                                             ),
                                                           ),
@@ -372,8 +367,7 @@ class HomePage extends StatelessWidget {
                                                         SizedBox(
                                                           width: 15,
                                                           height: 15,
-                                                          child:
-                                                              SvgPicture.asset(
+                                                          child: SvgPicture.asset(
                                                             'assets/vectors/vector_112_x2.svg',
                                                           ),
                                                         ),
@@ -382,19 +376,15 @@ class HomePage extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Container(
-                                                  margin:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 5, 0, 0),
+                                                  margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                                                   child: Text(
                                                     '${coffeeShop.rating} оценок',
                                                     style: GoogleFonts.getFont(
                                                       'Roboto Condensed',
-                                                      fontWeight:
-                                                          FontWeight.w400,
+                                                      fontWeight: FontWeight.w400,
                                                       fontSize: 10,
                                                       height: 1,
-                                                      color: const Color(
-                                                          0xFF4B3832),
+                                                      color: const Color(0xFF4B3832),
                                                     ),
                                                   ),
                                                 ),
@@ -405,8 +395,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
-                                      margin: const EdgeInsets.fromLTRB(
-                                          12, 0, 12, 3),
+                                      margin: const EdgeInsets.fromLTRB(12, 0, 12, 3),
                                       child: Align(
                                         alignment: Alignment.topLeft,
                                         child: Text(
@@ -422,8 +411,7 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
-                                      margin: const EdgeInsets.fromLTRB(
-                                          12, 0, 12, 8),
+                                      margin: const EdgeInsets.fromLTRB(12, 0, 12, 8),
                                       child: Align(
                                         alignment: Alignment.topLeft,
                                         child: Text(
@@ -439,17 +427,13 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
-                                      margin: const EdgeInsets.fromLTRB(
-                                          12, 0, 12, 12),
+                                      margin: const EdgeInsets.fromLTRB(12, 0, 12, 12),
                                       child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin: const EdgeInsets.fromLTRB(
-                                                0, 5, 8, 4),
+                                            margin: const EdgeInsets.fromLTRB(0, 5, 8, 4),
                                             child: SizedBox(
                                               width: 250,
                                               child: Text(
@@ -459,23 +443,18 @@ class HomePage extends StatelessWidget {
                                                   fontWeight: FontWeight.w800,
                                                   fontSize: 16,
                                                   height: 1,
-                                                  color:
-                                                      const Color(0xFF03AD00),
+                                                  color: const Color(0xFF03AD00),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           SizedBox(
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  margin:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 0, 5, 0),
+                                                  margin: const EdgeInsets.fromLTRB(0, 0, 5, 0),
                                                   child: SizedBox(
                                                     width: 28,
                                                     height: 25,
@@ -503,8 +482,7 @@ class HomePage extends StatelessWidget {
                             },
                           );
                         } else {
-                          return const Center(
-                              child: Text('No coffee shops found'));
+                          return const Center(child: Text('No coffee shops found'));
                         }
                       },
                     ),

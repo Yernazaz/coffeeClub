@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/login_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/auth/auth_service.dart';
@@ -32,6 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
+      print('Sending OTP to: ${_phoneController.text}, Name: ${_nameController.text}');
       await _authService.sendOtp(_phoneController.text, _nameController.text);
       Navigator.push(
         context,
@@ -42,7 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       );
     } catch (e) {
-      print(e);
+      print('Error sending OTP: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to send OTP')),
       );
@@ -150,7 +152,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // Navigate to login page if implemented
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => LoginPage()),
+                              );
                           },
                           child: Text(
                             'Войти',
@@ -168,8 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     SizedBox(height: 20),
                     Container(
                       margin: EdgeInsets.only(bottom: 14),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 11, vertical: 1),
+                      padding: EdgeInsets.symmetric(horizontal: 11, vertical: 1),
                       decoration: BoxDecoration(
                         color: Color(0xFFFFF4E6),
                         borderRadius: BorderRadius.circular(11),
@@ -201,8 +205,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     Container(
                       margin: EdgeInsets.only(bottom: 40),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 11, vertical: 1),
+                      padding: EdgeInsets.symmetric(horizontal: 11, vertical: 1),
                       decoration: BoxDecoration(
                         color: Color(0xFFFFF4E6),
                         borderRadius: BorderRadius.circular(11),
