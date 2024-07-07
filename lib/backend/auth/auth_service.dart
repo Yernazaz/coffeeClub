@@ -6,9 +6,7 @@ class AuthService {
       'https://coffee-club-e65fb60d8d11.herokuapp.com/api';
 
   Future<void> sendOtp(String phone, String name) async {
-    bool useMockResponse = true;
-    if (!useMockResponse) {
-      final url = Uri.parse('$baseUrl/phone/');
+    final url = Uri.parse('$baseUrl/phone/');
       final response = await http.post(
         url,
         headers: {
@@ -23,21 +21,10 @@ class AuthService {
       if (response.statusCode != 200) {
         throw Exception('Failed to send OTP');
       }
-    } else {
-      print('Mock response: OTP sent');
-    }
   }
 
   Future<Map<String, String>> verifyOtp(String phone, String otp) async {
-    bool useMockResponse =
-        true; // Установите этот флаг в false, чтобы использовать реальный запрос к серверу
-
-    if (useMockResponse) {
-      return {
-        'refresh': 'mock_refresh_token',
-        'access': 'mock_access_token',
-      };
-    } else {
+    
       final url = Uri.parse('$baseUrl/otp/');
       final response = await http.post(
         url,
@@ -59,6 +46,6 @@ class AuthService {
       } else {
         throw Exception('Failed to verify OTP');
       }
-    }
+    
   }
 }

@@ -8,11 +8,11 @@ class NotificationsPromotions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xFFFFF4E6),
       ),
       child: Container(
-        padding: EdgeInsets.fromLTRB(0, 60, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
@@ -23,114 +23,91 @@ class NotificationsPromotions extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: Text(
-                      'Уведомления',
-                      style: GoogleFonts.getFont(
-                        'Roboto Condensed',
-                        fontWeight: FontWeight.w800,
-                        fontSize: 24,
-                        height: 1,
-                        color: Color(0xFF4B3832),
-                      ),
-                    ),
-                  ),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      child: Align(
+                        alignment: Alignment.topCenter,
+                        child: Text(
+                          'Уведомления',
+                          style: GoogleFonts.getFont(
+                            'Roboto Condensed',
+                            fontWeight: FontWeight.w800,
+                            fontSize: 30,
+                            height: 1,
+                            color: const Color(0xFF4B3832),
+                          ),
+                        ),
+                      )),
                   Container(
-                    margin: EdgeInsets.fromLTRB(32, 0, 32, 24),
+                    margin: const EdgeInsets.fromLTRB(32, 0, 32, 24),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF4B3832),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(7, 8, 7, 7),
-                                child: Text(
-                                  'Все',
-                                  style: GoogleFonts.getFont(
-                                    'Roboto Condensed',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    height: 1,
-                                    color: Color(0xFFFFF4E6),
-                                  ),
-                                ),
-                              ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF4B3832),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.fromLTRB(7, 8, 7, 7),
+                          child: Text(
+                            'Все',
+                            style: GoogleFonts.getFont(
+                              'Roboto Condensed',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              height: 1,
+                              color: const Color(0xFFFFF4E6),
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFECECEC),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(7.4, 8, 7.4, 7),
-                                child: Text(
-                                  'Акции',
-                                  style: GoogleFonts.getFont(
-                                    'Roboto Condensed',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    height: 1,
-                                    color: Color(0xFF4B3832),
-                                  ),
-                                ),
-                              ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFECECEC),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.fromLTRB(6.3, 8, 6.3, 7),
+                          child: Text(
+                            'Акции',
+                            style: GoogleFonts.getFont(
+                              'Roboto Condensed',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              height: 1,
+                              color: const Color(0xFF4B3832),
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFECECEC),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(12, 8, 11, 7),
-                                child: Text(
-                                  'Сообщения',
-                                  style: GoogleFonts.getFont(
-                                    'Roboto Condensed',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    height: 1,
-                                    color: Color(0xFF4B3832),
-                                  ),
-                                ),
-                              ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFECECEC),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
+                          child: Text(
+                            'Сообщения',
+                            style: GoogleFonts.getFont(
+                              'Roboto Condensed',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              height: 1,
+                              color: const Color(0xFF4B3832),
                             ),
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFECECEC),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.fromLTRB(0, 8, 1, 7),
-                              child: Text(
-                                'Опросы',
-                                style: GoogleFonts.getFont(
-                                  'Roboto Condensed',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  height: 1,
-                                  color: Color(0xFF4B3832),
-                                ),
-                              ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFECECEC),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
+                          child: Text(
+                            'Опросы',
+                            style: GoogleFonts.getFont(
+                              'Roboto Condensed',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              height: 1,
+                              color: const Color(0xFF4B3832),
                             ),
                           ),
                         ),
@@ -138,50 +115,14 @@ class NotificationsPromotions extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 23.6, 7),
-                    child: RichText(
-                      text: TextSpan(
-                        style: GoogleFonts.getFont(
-                          'Roboto Condensed',
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                          height: 1,
-                          color: Color(0xFF000000),
-                        ),
-                        children: [
-                          TextSpan(
-                            text: 'Promotion',
-                            style: GoogleFonts.getFont(
-                              'Roboto Condensed',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              height: 1.3,
-                            ),
-                          ),
-                          TextSpan(
-                            text:
-                                'Cofe Nova:CAFE NAME offer free donate with every third coffee you buy before may 21, 2024.',
-                            style: GoogleFonts.getFont(
-                              'Roboto Condensed',
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16,
-                              height: 1,
-                              color: Color(0xFF000000),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(31, 0, 31, 9),
+                    margin: const EdgeInsets.fromLTRB(31, 0, 31, 9),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFFFFF),
+                        color: const Color(0xFFFFFFFF),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(13, 4, 27.7, 3),
+                        padding: const EdgeInsets.fromLTRB(13, 8, 13, 6),
                         child: RichText(
                           text: TextSpan(
                             style: GoogleFonts.getFont(
@@ -189,11 +130,11 @@ class NotificationsPromotions extends StatelessWidget {
                               fontWeight: FontWeight.w300,
                               fontSize: 16,
                               height: 1,
-                              color: Color(0xFF000000),
+                              color: const Color(0xFF000000),
                             ),
                             children: [
                               TextSpan(
-                                text: 'Promotion',
+                                text: 'Promotion\n', // Added newline character
                                 style: GoogleFonts.getFont(
                                   'Roboto Condensed',
                                   fontWeight: FontWeight.w400,
@@ -203,13 +144,13 @@ class NotificationsPromotions extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'Zebra Coffee:On the occasion of Cafe anniversary, we offer 50% discount for your coffee at any member of Coffee club',
+                                    'Zebra Coffee: On the occasion of Cafe anniversary, we offer 50% discount for your coffee at any member of Coffee club',
                                 style: GoogleFonts.getFont(
                                   'Roboto Condensed',
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16,
                                   height: 1,
-                                  color: Color(0xFF000000),
+                                  color: const Color(0xFF000000),
                                 ),
                               ),
                             ],
@@ -219,16 +160,15 @@ class NotificationsPromotions extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(31, 0, 31, 12),
+                    margin: const EdgeInsets.fromLTRB(31, 0, 31, 12),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFFFFF),
+                        color: const Color(0xFFFFFFFF),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(13, 8, 30.8, 1),
-                        child: Stack(
-                          clipBehavior: Clip.none,
+                        padding: const EdgeInsets.fromLTRB(13, 8, 13, 1),
+                        child: Column(
                           children: [
                             RichText(
                               text: TextSpan(
@@ -237,11 +177,12 @@ class NotificationsPromotions extends StatelessWidget {
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16,
                                   height: 1,
-                                  color: Color(0xFF000000),
+                                  color: const Color(0xFF000000),
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: 'Admin Message',
+                                    text:
+                                        'Admin Message\n', // Added newline character
                                     style: GoogleFonts.getFont(
                                       'Roboto Condensed',
                                       fontWeight: FontWeight.w400,
@@ -251,34 +192,36 @@ class NotificationsPromotions extends StatelessWidget {
                                   ),
                                   TextSpan(
                                     text:
-                                        'Dear John,On the occasion of your birthday, we offer 50% discount for your coffee at any member of Coffee club',
+                                        'Dear John, On the occasion of your birthday, we offer 50% discount for your coffee at any member of Coffee club',
                                     style: GoogleFonts.getFont(
                                       'Roboto Condensed',
                                       fontWeight: FontWeight.w300,
                                       fontSize: 16,
                                       height: 1,
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            Positioned(
-                              right: -18.3,
-                              bottom: 5,
-                              child: SizedBox(
-                                height: 13,
-                                child: Text(
-                                  'received DD/MM ',
-                                  style: GoogleFonts.getFont(
-                                    'Roboto Condensed',
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                    height: 1,
-                                    color: Color(0xFF000000),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'received DD/MM ',
+                                    style: GoogleFonts.getFont(
+                                      'Roboto Condensed',
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 13,
+                                      height: 1,
+                                      color: const Color(0xFF000000),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
                           ],
@@ -287,16 +230,15 @@ class NotificationsPromotions extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(31, 0, 31, 12),
+                    margin: const EdgeInsets.fromLTRB(31, 0, 31, 12),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFFFFF),
+                        color: const Color(0xFFFFFFFF),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(13, 17, 24.8, 12),
-                        child: Stack(
-                          clipBehavior: Clip.none,
+                        padding: const EdgeInsets.fromLTRB(13, 8, 13, 1),
+                        child: Column(
                           children: [
                             RichText(
                               text: TextSpan(
@@ -305,11 +247,12 @@ class NotificationsPromotions extends StatelessWidget {
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16,
                                   height: 1,
-                                  color: Color(0xFF000000),
+                                  color: const Color(0xFF000000),
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: 'Admin Message',
+                                    text:
+                                        'Admin Message\n', // Added newline character
                                     style: GoogleFonts.getFont(
                                       'Roboto Condensed',
                                       fontWeight: FontWeight.w400,
@@ -319,34 +262,36 @@ class NotificationsPromotions extends StatelessWidget {
                                   ),
                                   TextSpan(
                                     text:
-                                        'Dear John,Thank you for your Order 2953 for 14500 tenge, we will process it soon.  ',
+                                        'Dear John, Thank you for your Order 2953 for 14500 tenge, we will process it soon.',
                                     style: GoogleFonts.getFont(
                                       'Roboto Condensed',
                                       fontWeight: FontWeight.w300,
                                       fontSize: 16,
                                       height: 1,
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            Positioned(
-                              right: -12.3,
-                              bottom: -2,
-                              child: SizedBox(
-                                height: 13,
-                                child: Text(
-                                  'received DD/MM ',
-                                  style: GoogleFonts.getFont(
-                                    'Roboto Condensed',
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                    height: 1,
-                                    color: Color(0xFF000000),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'received DD/MM ',
+                                    style: GoogleFonts.getFont(
+                                      'Roboto Condensed',
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 13,
+                                      height: 1,
+                                      color: const Color(0xFF000000),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
                           ],
@@ -355,15 +300,15 @@ class NotificationsPromotions extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(31, 0, 31, 31),
+                    margin: const EdgeInsets.fromLTRB(31, 0, 31, 12),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFFFFF),
+                        color: const Color(0xFFFFFFFF),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Container(
-                        padding: EdgeInsets.fromLTRB(13, 17, 13.4, 12),
-                        child: Stack(
-                          clipBehavior: Clip.none,
+                        padding: const EdgeInsets.fromLTRB(13, 8, 13, 1),
+                        child: Column(
                           children: [
                             RichText(
                               text: TextSpan(
@@ -372,11 +317,82 @@ class NotificationsPromotions extends StatelessWidget {
                                   fontWeight: FontWeight.w300,
                                   fontSize: 16,
                                   height: 1,
-                                  color: Color(0xFF000000),
+                                  color: const Color(0xFF000000),
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: 'Admin Message',
+                                    text:
+                                        'Admin Message\n', // Added newline character
+                                    style: GoogleFonts.getFont(
+                                      'Roboto Condensed',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                      height: 1.3,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Cofe Nova: CAFE NAME offer free donate with every third coffee you buy before may 21, 2024.',
+                                    style: GoogleFonts.getFont(
+                                      'Roboto Condensed',
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 16,
+                                      height: 1,
+                                      color: const Color(0xFF000000),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'received DD/MM ',
+                                    style: GoogleFonts.getFont(
+                                      'Roboto Condensed',
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 13,
+                                      height: 1,
+                                      color: const Color(0xFF000000),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(31, 0, 31, 31),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xFFFFFFFF),
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.fromLTRB(13, 8, 13, 1),
+                        child: Column(
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                style: GoogleFonts.getFont(
+                                  'Roboto Condensed',
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16,
+                                  height: 1,
+                                  color: const Color(0xFF000000),
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        'Admin Message\n', // Added newline character
                                     style: GoogleFonts.getFont(
                                       'Roboto Condensed',
                                       fontWeight: FontWeight.w400,
@@ -392,39 +408,46 @@ class NotificationsPromotions extends StatelessWidget {
                                       fontWeight: FontWeight.w300,
                                       fontSize: 16,
                                       height: 1,
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                            Positioned(
-                              right: -0.8,
-                              bottom: -6,
-                              child: SizedBox(
-                                height: 13,
-                                child: Text(
-                                  'received DD/MM ',
-                                  style: GoogleFonts.getFont(
-                                    'Roboto Condensed',
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 13,
-                                    height: 1,
-                                    color: Color(0xFF000000),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 25,
+                                    height: 13,
+                                    child: SvgPicture.asset(
+                                      'assets/vectors/vector_8_x2.svg',
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                            Positioned(
-                              right: 2.6,
-                              bottom: 18,
-                              child: SizedBox(
-                                width: 25,
-                                height: 13,
-                                child: SvgPicture.asset(
-                                  'assets/vectors/vector_8_x2.svg',
-                                ),
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 6, 0, 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'received DD/MM ',
+                                    style: GoogleFonts.getFont(
+                                      'Roboto Condensed',
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 13,
+                                      height: 1,
+                                      color: const Color(0xFF000000),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -433,21 +456,6 @@ class NotificationsPromotions extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            ),
-            Positioned(
-              left: 31,
-              right: 31,
-              top: 150,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFFFFFFF),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Container(
-                  width: 331,
-                  height: 77,
-                ),
               ),
             ),
           ],

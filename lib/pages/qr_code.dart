@@ -21,10 +21,11 @@ class QrCode extends StatelessWidget {
               margin: EdgeInsets.fromLTRB(34.5, 0, 34.5, 30),
               child: Text(
                 'Coffee club',
+                textAlign: TextAlign.center,
                 style: GoogleFonts.getFont(
                   'Sanchez',
                   fontWeight: FontWeight.w400,
-                  fontSize: 60,
+                  fontSize: 56,
                   height: 1,
                   color: Color(0xFF4B3832),
                 ),

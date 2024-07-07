@@ -9,11 +9,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xFFFFF4E6),
           ),
           child: Container(
-            padding: EdgeInsets.fromLTRB(0, 41, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 41, 0, 0),
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(32, 0, 32, 6),
+                      margin: const EdgeInsets.fromLTRB(32, 0, 32, 6),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -32,13 +32,13 @@ class HomePage extends StatelessWidget {
                             fontWeight: FontWeight.w800,
                             fontSize: 20,
                             height: 1,
-                            color: Color(0xFF4B3832),
+                            color: const Color(0xFF4B3832),
                           ),
                         ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(32, 0, 32, 7),
+                      margin: const EdgeInsets.fromLTRB(32, 0, 32, 7),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Row(
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 6.3, 0),
+                              margin: const EdgeInsets.fromLTRB(0, 0, 6.3, 0),
                               child: SizedBox(
                                 width: 18.8,
                                 height: 25,
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 3, 0, 2),
+                              margin: const EdgeInsets.fromLTRB(0, 3, 0, 2),
                               child: Text(
                                 'Астана',
                                 style: GoogleFonts.getFont(
@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
                                   fontWeight: FontWeight.w800,
                                   fontSize: 20,
                                   height: 1,
-                                  color: Color(0xFF4B3832),
+                                  color: const Color(0xFF4B3832),
                                 ),
                               ),
                             ),
@@ -73,14 +73,15 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(30, 0, 33, 7),
+                      margin: const EdgeInsets.fromLTRB(30, 0, 33, 7),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xFFECECEC),
+                          color: const Color(0xFFECECEC),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(7.4, 6.4, 15.4, 7.5),
+                          padding:
+                              const EdgeInsets.fromLTRB(7.4, 6.4, 15.4, 7.5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +91,8 @@ class HomePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(0, 0, 5.5, 0),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 0, 5.5, 0),
                                     width: 21.1,
                                     height: 21.1,
                                     child: SizedBox(
@@ -102,7 +104,8 @@ class HomePage extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(0, 2.6, 0, 3.5),
+                                    margin: const EdgeInsets.fromLTRB(
+                                        0, 2.6, 0, 3.5),
                                     child: Text(
                                       'Поиск...',
                                       style: GoogleFonts.getFont(
@@ -110,14 +113,14 @@ class HomePage extends StatelessWidget {
                                         fontWeight: FontWeight.w400,
                                         fontSize: 15,
                                         height: 1,
-                                        color: Color(0xFF4B3832),
+                                        color: const Color(0xFF4B3832),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
                               Container(
-                                margin: EdgeInsets.fromLTRB(0, 4, 0, 3.9),
+                                margin: const EdgeInsets.fromLTRB(0, 4, 0, 3.9),
                                 width: 13.2,
                                 height: 13.2,
                                 child: SizedBox(
@@ -134,101 +137,78 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(30, 0, 34, 15),
+                      margin: const EdgeInsets.fromLTRB(30, 0, 34, 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF4B3832),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(7, 8, 7, 7),
-                                  child: Text(
-                                    'Все',
-                                    style: GoogleFonts.getFont(
-                                      'Roboto Condensed',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      height: 1,
-                                      color: Color(0xFFFFF4E6),
-                                    ),
-                                  ),
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF4B3832),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.fromLTRB(7, 8, 7, 7),
+                            child: Text(
+                              'Все',
+                              style: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                height: 1,
+                                color: const Color(0xFFFFF4E6),
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFECECEC),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(6.3, 8, 6.3, 7),
-                                  child: Text(
-                                    'Рядом',
-                                    style: GoogleFonts.getFont(
-                                      'Roboto Condensed',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      height: 1,
-                                      color: Color(0xFF4B3832),
-                                    ),
-                                  ),
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFECECEC),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.fromLTRB(6.3, 8, 6.3, 7),
+                            child: Text(
+                              'Рядом',
+                              style: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                height: 1,
+                                color: const Color(0xFF4B3832),
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 13, 0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFECECEC),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(0, 8, 0, 7),
-                                  child: Text(
-                                    'С бонусами',
-                                    style: GoogleFonts.getFont(
-                                      'Roboto Condensed',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 16,
-                                      height: 1,
-                                      color: Color(0xFF4B3832),
-                                    ),
-                                  ),
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFECECEC),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding:
+                                const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
+                            child: Text(
+                              'С бонусами',
+                              style: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                height: 1,
+                                color: const Color(0xFF4B3832),
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFECECEC),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
-                                child: Text(
-                                  'Избранное',
-                                  style: GoogleFonts.getFont(
-                                    'Roboto Condensed',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                    height: 1,
-                                    color: Color(0xFF4B3832),
-                                  ),
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFECECEC),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding:
+                                const EdgeInsets.fromLTRB(11.5, 8, 11.5, 7),
+                            child: Text(
+                              'Избранное',
+                              style: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                height: 1,
+                                color: const Color(0xFF4B3832),
                               ),
                             ),
                           ),
@@ -240,21 +220,23 @@ class HomePage extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         } else if (snapshot.hasError) {
-                          return Center(
+                          return const Center(
                               child: Text('Failed to load coffee shops'));
                         } else if (snapshot.hasData) {
                           return ListView.builder(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               final coffeeShop = snapshot.data![index];
                               return Container(
-                                margin: EdgeInsets.fromLTRB(32, 0, 31, 13),
+                                margin:
+                                    const EdgeInsets.fromLTRB(32, 0, 31, 13),
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFFFFFFF),
+                                  color: const Color(0xFFFFFFFF),
                                   borderRadius: BorderRadius.circular(11),
                                 ),
                                 child: Column(
@@ -262,9 +244,13 @@ class HomePage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(0, 0, 0, 6),
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 6),
                                       child: Container(
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(11),
+                                              topRight: Radius.circular(11)),
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(
@@ -278,7 +264,8 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(12, 0, 14, 5),
+                                      margin: const EdgeInsets.fromLTRB(
+                                          12, 0, 12, 5),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -286,7 +273,7 @@ class HomePage extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin: EdgeInsets.fromLTRB(
+                                            margin: const EdgeInsets.fromLTRB(
                                                 0, 0, 10, 0),
                                             child: SizedBox(
                                               width: 152,
@@ -297,14 +284,15 @@ class HomePage extends StatelessWidget {
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 20,
                                                   height: 1,
-                                                  color: Color(0xFF000000),
+                                                  color:
+                                                      const Color(0xFF000000),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           Container(
-                                            margin:
-                                                EdgeInsets.fromLTRB(0, 2, 0, 3),
+                                            margin: const EdgeInsets.fromLTRB(
+                                                0, 2, 0, 3),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
@@ -312,8 +300,9 @@ class HomePage extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  margin: EdgeInsets.fromLTRB(
-                                                      0, 0, 4, 0),
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 4, 0),
                                                   child: SizedBox(
                                                     width: 91,
                                                     child: Row(
@@ -325,8 +314,9 @@ class HomePage extends StatelessWidget {
                                                               .start,
                                                       children: [
                                                         Container(
-                                                          margin: EdgeInsets
-                                                              .fromLTRB(
+                                                          margin:
+                                                              const EdgeInsets
+                                                                  .fromLTRB(
                                                                   0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
@@ -338,8 +328,9 @@ class HomePage extends StatelessWidget {
                                                           ),
                                                         ),
                                                         Container(
-                                                          margin: EdgeInsets
-                                                              .fromLTRB(
+                                                          margin:
+                                                              const EdgeInsets
+                                                                  .fromLTRB(
                                                                   0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
@@ -351,8 +342,9 @@ class HomePage extends StatelessWidget {
                                                           ),
                                                         ),
                                                         Container(
-                                                          margin: EdgeInsets
-                                                              .fromLTRB(
+                                                          margin:
+                                                              const EdgeInsets
+                                                                  .fromLTRB(
                                                                   0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
@@ -364,8 +356,9 @@ class HomePage extends StatelessWidget {
                                                           ),
                                                         ),
                                                         Container(
-                                                          margin: EdgeInsets
-                                                              .fromLTRB(
+                                                          margin:
+                                                              const EdgeInsets
+                                                                  .fromLTRB(
                                                                   0, 0, 4, 0),
                                                           child: SizedBox(
                                                             width: 15,
@@ -389,8 +382,9 @@ class HomePage extends StatelessWidget {
                                                   ),
                                                 ),
                                                 Container(
-                                                  margin: EdgeInsets.fromLTRB(
-                                                      0, 5, 0, 0),
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 5, 0, 0),
                                                   child: Text(
                                                     '${coffeeShop.rating} оценок',
                                                     style: GoogleFonts.getFont(
@@ -399,7 +393,8 @@ class HomePage extends StatelessWidget {
                                                           FontWeight.w400,
                                                       fontSize: 10,
                                                       height: 1,
-                                                      color: Color(0xFF4B3832),
+                                                      color: const Color(
+                                                          0xFF4B3832),
                                                     ),
                                                   ),
                                                 ),
@@ -410,7 +405,8 @@ class HomePage extends StatelessWidget {
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(12, 0, 12, 3),
+                                      margin: const EdgeInsets.fromLTRB(
+                                          12, 0, 12, 3),
                                       child: Align(
                                         alignment: Alignment.topLeft,
                                         child: Text(
@@ -420,13 +416,14 @@ class HomePage extends StatelessWidget {
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14,
                                             height: 1,
-                                            color: Color(0xFF4B3832),
+                                            color: const Color(0xFF4B3832),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      margin: EdgeInsets.fromLTRB(12, 0, 12, 8),
+                                      margin: const EdgeInsets.fromLTRB(
+                                          12, 0, 12, 8),
                                       child: Align(
                                         alignment: Alignment.topLeft,
                                         child: Text(
@@ -436,14 +433,14 @@ class HomePage extends StatelessWidget {
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14,
                                             height: 1,
-                                            color: Color(0xFF4B3832),
+                                            color: const Color(0xFF4B3832),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      margin:
-                                          EdgeInsets.fromLTRB(12, 0, 8.3, 0),
+                                      margin: const EdgeInsets.fromLTRB(
+                                          12, 0, 12, 12),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -451,8 +448,8 @@ class HomePage extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Container(
-                                            margin:
-                                                EdgeInsets.fromLTRB(0, 5, 8, 4),
+                                            margin: const EdgeInsets.fromLTRB(
+                                                0, 5, 8, 4),
                                             child: SizedBox(
                                               width: 250,
                                               child: Text(
@@ -462,13 +459,13 @@ class HomePage extends StatelessWidget {
                                                   fontWeight: FontWeight.w800,
                                                   fontSize: 16,
                                                   height: 1,
-                                                  color: Color(0xFF03AD00),
+                                                  color:
+                                                      const Color(0xFF03AD00),
                                                 ),
                                               ),
                                             ),
                                           ),
                                           SizedBox(
-                                            width: 51.8,
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
@@ -476,8 +473,9 @@ class HomePage extends StatelessWidget {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Container(
-                                                  margin: EdgeInsets.fromLTRB(
-                                                      0, 0, 5, 0),
+                                                  margin:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 5, 0),
                                                   child: SizedBox(
                                                     width: 28,
                                                     height: 25,
@@ -505,25 +503,12 @@ class HomePage extends StatelessWidget {
                             },
                           );
                         } else {
-                          return Center(child: Text('No coffee shops found'));
+                          return const Center(
+                              child: Text('No coffee shops found'));
                         }
                       },
                     ),
                   ],
-                ),
-                Positioned(
-                  right: 31,
-                  bottom: 122,
-                  child: Opacity(
-                    opacity: 0.7,
-                    child: SizedBox(
-                      width: 41,
-                      height: 55,
-                      child: SvgPicture.asset(
-                        'assets/vectors/map_x2.svg',
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),

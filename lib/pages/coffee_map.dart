@@ -13,7 +13,7 @@ class CoffeeMap extends StatefulWidget {
 class _CoffeeMapState extends State<CoffeeMap> {
   late GoogleMapController _controller;
   final Set<Marker> _markers = {};
-  LatLng _initialPosition = LatLng(78.654605, 108.998618);
+  LatLng _initialPosition = const LatLng(78.654605, 108.998618);
   bool _isLoading = true;
   CoffeeShop? _selectedCoffeeShop;
 
@@ -35,14 +35,14 @@ class _CoffeeMapState extends State<CoffeeMap> {
 
     // Draw the background for the marker
     canvas.drawCircle(
-      Offset(circleRadius, circleRadius),
+      const Offset(circleRadius, circleRadius),
       circleRadius,
       paint,
     );
 
     // Draw the inner white circle
     canvas.drawCircle(
-      Offset(circleRadius, circleRadius),
+      const Offset(circleRadius, circleRadius),
       circleRadius - 5,
       Paint()..color = Colors.white,
     );
@@ -51,7 +51,7 @@ class _CoffeeMapState extends State<CoffeeMap> {
     final textPainter = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 20.0,
           color: Colors.purple,
         ),
@@ -122,7 +122,7 @@ class _CoffeeMapState extends State<CoffeeMap> {
       body: Stack(
         children: [
           _isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : GoogleMap(
                   onMapCreated: (GoogleMapController controller) {
                     _controller = controller;
@@ -152,7 +152,8 @@ class _CoffeeMapState extends State<CoffeeMap> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(10.0)),
               child: Image.network(
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s',
                 fit: BoxFit.cover,
@@ -161,49 +162,58 @@ class _CoffeeMapState extends State<CoffeeMap> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.fromLTRB(8, 8, 4, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     _selectedCoffeeShop!.name,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Row(
                     children: [
-                      Icon(Icons.star, color: Colors.yellow, size: 20),
+                      const Icon(Icons.star, color: Colors.yellow, size: 20),
                       Text('${_selectedCoffeeShop!.rating} (100 оценок)'),
                     ],
                   ),
                   Text(
                       'Адрес: ${_selectedCoffeeShop!.street}, ${_selectedCoffeeShop!.city}'),
-                  Text('Расстояние: 00 км, 10:00 - 22:00'),
-                  Text(
-                    'ЕСТЬ БОНУСЫ',
-                    style: TextStyle(
-                        color: Colors.green, fontWeight: FontWeight.bold),
+                  const Text('Расстояние: 00 км, 10:00 - 22:00'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'ЕСТЬ БОНУСЫ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800,
+                            fontSize: 16,
+                            height: 1,
+                            color: Color(0xFF03AD00)),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.favorite_border),
+                            onPressed: () {
+                              // Handle favorite button
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () {
+                              setState(() {
+                                _selectedCoffeeShop = null;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.favorite_border),
-                  onPressed: () {
-                    // Handle favorite button
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {
-                    setState(() {
-                      _selectedCoffeeShop = null;
-                    });
-                  },
-                ),
-              ],
             ),
           ],
         ),
