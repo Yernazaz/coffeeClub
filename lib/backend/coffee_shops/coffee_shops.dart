@@ -20,6 +20,7 @@ class CoffeeShop {
   final double latitude;
   final double longitude;
   final String description;
+  final List<MenuItem> menuItems;
 
   CoffeeShop({
     required this.id,
@@ -40,6 +41,7 @@ class CoffeeShop {
     required this.latitude,
     required this.longitude,
     required this.description,
+    required this.menuItems,
   });
 
   factory CoffeeShop.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,55 @@ class CoffeeShop {
       latitude: double.parse(json['latitude']),
       longitude: double.parse(json['longitude']),
       description: json['description'],
+      menuItems: (json['menu_items'] as List)
+          .map((item) => MenuItem.fromJson(item))
+          .toList(),
+    );
+  }
+}
+
+class Amenities {
+  final bool food;
+  final bool wifi;
+  final bool drinks;
+  final bool seating;
+  final bool powerOutlets;
+
+  Amenities({
+    required this.food,
+    required this.wifi,
+    required this.drinks,
+    required this.seating,
+    required this.powerOutlets,
+  });
+
+  factory Amenities.fromJson(Map<String, dynamic> json) {
+    return Amenities(
+      food: json['food'],
+      wifi: json['wifi'],
+      drinks: json['drinks'],
+      seating: json['seating'],
+      powerOutlets: json['power_outlets'],
+    );
+  }
+}
+
+class MenuItem {
+  final String name;
+  final String description;
+  final double price;
+
+  MenuItem({
+    required this.name,
+    required this.description,
+    required this.price,
+  });
+
+  factory MenuItem.fromJson(Map<String, dynamic> json) {
+    return MenuItem(
+      name: json['name'],
+      description: json['description'],
+      price: double.parse(json['price']),
     );
   }
 }

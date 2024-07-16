@@ -28,6 +28,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/vectors/cup_filled.svg
+    - assets/vectors/cup.svg
+    - assets/vectors/free_cup.svg
     - assets/vectors/home.svg
     - assets/vectors/MAP.svg
     - assets/vectors/qrcode.svg

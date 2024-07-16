@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/pages/notifications_promotions.dart';
@@ -9,6 +10,9 @@ import 'package:flutter_app/pages/register_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/pages/coffee_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_app/backend/user/user_service.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
   Future<bool> checkLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? accessToken = prefs.getString('access_token');
-    return accessToken != '';
+    return accessToken != null && accessToken.isNotEmpty;
   }
 
   @override
@@ -74,6 +78,47 @@ class _MainPageState extends State<MainPage> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  Future<void> _sendLocationOnLogin() async {
+    Position position = await _determinePosition();
+    String? token = await getAccessToken();
+    if (token != null) {
+      UserLocation location =
+          UserLocation(lat: position.latitude, lng: position.longitude);
+      await sendUserLocation(location, token);
+    }
+  }
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _sendLocationOnLogin();
   }
 
   @override
