@@ -31,11 +31,6 @@ class _SmsVerificationPageState extends State<SmsVerificationPage> {
       final tokens =
           await _authService.verifyOtp(widget.phone, _otpController.text);
 
-      // Save tokens securely
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('access_token', tokens['access']!);
-      await prefs.setString('refresh_token', tokens['refresh']!);
-
       // Navigate to the next page
       Navigator.pushReplacement(
         context,

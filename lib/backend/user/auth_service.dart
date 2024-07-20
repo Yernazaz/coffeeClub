@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static const String baseUrl =
@@ -38,12 +39,48 @@ class AuthService {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
+
+      // Save user info to Shared Preferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('refresh', data['refresh']);
+      await prefs.setString('access', data['access']);
+      await prefs.setInt('user_id', data['user_id']);
+      await prefs.setString('user_name', data['user_info']['name']);
+      await prefs.setString('user_phone', data['user_info']['phone']);
+      await prefs.setString('user_role', data['user_info']['role']);
+
       return {
         'refresh': data['refresh'],
         'access': data['access'],
       };
     } else {
       throw Exception('Failed to verify OTP');
+    }
+  }
+
+  Future<String> refreshToken(String refreshToken) async {
+    final url = Uri.parse('$baseUrl/refresh-token/');
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+      },
+      body: json.encode({
+        'refresh': refreshToken,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+
+      // Update the access token in Shared Preferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('access', data['access']);
+
+      return data['access'];
+    } else {
+      throw Exception('Failed to refresh token');
     }
   }
 }
