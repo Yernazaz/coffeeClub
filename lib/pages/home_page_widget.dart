@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/barista_qr_code.dart';
 import 'package:flutter_app/pages/coffee_shop.dart';
 import 'package:flutter_app/pages/register_page.dart';
 import 'package:flutter_app/pages/coffee_shop.dart'; // Import the CoffeeShopPage
@@ -194,20 +195,31 @@ class HomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFECECEC),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            padding: const EdgeInsets.fromLTRB(6.3, 8, 6.3, 7),
-                            child: Text(
-                              'Рядом',
-                              style: GoogleFonts.getFont(
-                                'Roboto Condensed',
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                height: 1,
-                                color: const Color(0xFF4B3832),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => QRCodeScannerPage(
+                                          ),
+                                    ),
+                                  );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFECECEC),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: const EdgeInsets.fromLTRB(6.3, 8, 6.3, 7),
+                              child: Text(
+                                'Рядом',
+                                style: GoogleFonts.getFont(
+                                  'Roboto Condensed',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  height: 1,
+                                  color: const Color(0xFF4B3832),
+                                ),
                               ),
                             ),
                           ),

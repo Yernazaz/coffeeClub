@@ -36,24 +36,16 @@ class MyApp extends StatelessWidget {
     return FutureBuilder<bool>(
       future: checkLoggedIn(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
-            home: Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            ),
-          );
-        } else {
-          if (snapshot.hasData && snapshot.data == true) {
+        
+         
+       
+           
             return MaterialApp(
               home: MainPage(), // Navigate to MainPage if logged in
             );
-          } else {
-            return MaterialApp(
-              home: RegisterPage(), // Navigate to RegisterPage if not logged in
-            );
-          }
-        }
-      },
+          } 
+        
+      
     );
   }
 }
