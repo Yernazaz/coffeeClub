@@ -6,8 +6,29 @@ import 'package:flutter_app/pages/coffee_shop.dart'; // Import the CoffeeShopPag
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatelessWidget {
+class HomePageWidget extends StatefulWidget {
+  @override
+  _HomePageWidgetState createState() => _HomePageWidgetState();
+}
+
+class _HomePageWidgetState extends State<HomePageWidget> {
+  String? username;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('user_name');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +52,7 @@ class HomePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Добрый день, Алиса.',
+                            'Добрый день, ${username}.',
                             style: GoogleFonts.getFont(
                               'Roboto Condensed',
                               fontWeight: FontWeight.w800,
@@ -198,19 +219,19 @@ class HomePage extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => QRCodeScannerPage(
-                                          ),
-                                    ),
-                                  );
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => QRCodeScannerPage(),
+                                ),
+                              );
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 color: const Color(0xFFECECEC),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              padding: const EdgeInsets.fromLTRB(6.3, 8, 6.3, 7),
+                              padding:
+                                  const EdgeInsets.fromLTRB(6.3, 8, 6.3, 7),
                               child: Text(
                                 'Рядом',
                                 style: GoogleFonts.getFont(

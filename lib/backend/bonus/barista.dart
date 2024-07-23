@@ -8,7 +8,7 @@ class BaristaBonus {
 
   Future<String> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token') ?? '';
+    return prefs.getString('access') ?? '';
   }
 
   Future<Map<String, dynamic>> giveBonus(int userId, int coffeeShopId) async {
@@ -29,6 +29,23 @@ class BaristaBonus {
     }
   }
 
+  Future<Map<String, dynamic>> getUserDetail(int userId) async {
+    final token = await _getToken();
+    final response = await http.get(
+      Uri.parse('$baseUrl/bonuse/barista/user-detail/$userId/'),
+      headers: {
+        'accept': '*/*',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(utf8.decode(response.bodyBytes));
+    } else {
+      throw Exception('Failed to get user detail');
+    }
+  }
+
   Future<Map<String, dynamic>> scanQr(int qrId) async {
     final token = await _getToken();
     final response = await http.post(
@@ -37,7 +54,7 @@ class BaristaBonus {
         'accept': '*/*',
         'Authorization': 'Bearer $token',
       },
-      body: '', // Empty body
+      body: '',
     );
 
     if (response.statusCode == 200) {

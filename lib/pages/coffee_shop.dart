@@ -1,96 +1,172 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
+import 'package:flutter_app/backend/bonus/customer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/pages/qr_code.dart';
 
 class CoffeeShopPage extends StatelessWidget {
   final CoffeeShop coffeeShop;
 
   CoffeeShopPage({super.key, required this.coffeeShop});
 
+  Future<int> _getUserId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('user_id') ?? 0;
+  }
+
+  Future<Map<String, dynamic>> _fetchBonusGlasses(int userId) async {
+    CustomerBonus customerBonus = CustomerBonus();
+    return await customerBonus.viewBonusGlasses(userId, coffeeShop.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF4E6), // добавлен цвет фона
+      backgroundColor: const Color(0xFFFFF4E6),
+      body: FutureBuilder(
+        future: _getUserId(),
+        builder: (context, AsyncSnapshot<int> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            final userId = snapshot.data!;
+            return FutureBuilder(
+              future: _fetchBonusGlasses(userId),
+              builder:
+                  (context, AsyncSnapshot<Map<String, dynamic>> bonusSnapshot) {
+                if (bonusSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (bonusSnapshot.hasError) {
+                  return Center(child: Text('Error: ${bonusSnapshot.error}'));
+                } else {
+                  final bonusData = bonusSnapshot.data!;
+                  return _buildPage(context, bonusData);
+                }
+              },
+            );
+          }
+        },
+      ),
+    );
+  }
 
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+  Widget _buildPage(BuildContext context, Map<String, dynamic> bonusData) {
+    int glassesCollected = bonusData['glasses_collected'];
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(11),
+                  bottomRight: Radius.circular(11),
+                ),
+                child: Image.network(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s',
+                  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Positioned(
+                top: 16,
+                left: 16,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(11),
-                    bottomRight: Radius.circular(11),
-                  ),
-                  child: Image.network(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s',
-                    width: double.infinity,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
+                Text(
+                  coffeeShop.name,
+                  style: const TextStyle(
+                      fontSize: 28, fontWeight: FontWeight.bold),
                 ),
-                Positioned(
-                  top: 16,
-                  left: 16,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                const SizedBox(height: 8),
+                Text(
+                    '${coffeeShop.street}, ${coffeeShop.city}, ${coffeeShop.region}',
+                    style: const TextStyle(fontSize: 16)),
+                const Text('Расстояние: 00 км', style: TextStyle(fontSize: 16)),
+                Text('График работы: ${coffeeShop.openingHours} - 22:00',
+                    style: const TextStyle(fontSize: 16)),
+                const SizedBox(height: 16),
+                const Text(
+                  'Бонусная система',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                BonusSystemWidget(
+                    glassesCollected: glassesCollected,
+                    coffeeShopId: coffeeShop.id),
+                const SizedBox(height: 16),
+                Center(
+                  child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QrCode(id: coffeeShop.id),
+                        ),
+                      );
                     },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Color(0xFF4B3832),
+                      backgroundColor: Color(0xFFDCAA61),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Показать QR-код',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
+                const SizedBox(height: 16),
+                const Text(
+                  'При покупке кофе необходимо показать кассиру QR-код. Чтобы получить 10-ю чашку кофе бесплатно, нужно собрать 9 штампов за предыдущие покупки.',
+                  style: TextStyle(fontSize: 11, color: Colors.grey),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Меню',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                MenuWidget(menuItems: coffeeShop.menuItems),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    coffeeShop.name,
-                    style: const TextStyle(
-                        fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                      '${coffeeShop.street}, ${coffeeShop.city}, ${coffeeShop.region}',
-                      style: const TextStyle(fontSize: 16)),
-                  const Text('Расстояние: 00 км',
-                      style: TextStyle(fontSize: 16)),
-                  Text('График работы: ${coffeeShop.openingHours} - 22:00',
-                      style: const TextStyle(fontSize: 16)),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Бонусная система',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  BonusSystemWidget(),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'При покупке кофе необходимо показать кассиру QR-код. Чтобы получить 10-ю чашку кофе бесплатно, нужно собрать 9 штампов за предыдущие покупки.',
-                    style: TextStyle(fontSize: 11, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Меню',
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  MenuWidget(menuItems: coffeeShop.menuItems),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class BonusSystemWidget extends StatelessWidget {
-  const BonusSystemWidget({super.key});
+  final int glassesCollected;
+  final int coffeeShopId;
+
+  const BonusSystemWidget(
+      {super.key, required this.glassesCollected, required this.coffeeShopId});
 
   @override
   Widget build(BuildContext context) {
@@ -98,14 +174,15 @@ class BonusSystemWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-         borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(8),
         border: Border.all(
           color: Color(0xFFDCAA61), // Border color
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Color(0xFFDCAA61).withOpacity(0.5), // Shadow color with blur effect
+            color: Color(0xFFDCAA61)
+                .withOpacity(0.5), // Shadow color with blur effect
             spreadRadius: 4,
             blurRadius: 10,
             offset: Offset(0, 3), // changes position of shadow
@@ -130,9 +207,9 @@ class BonusSystemWidget extends StatelessWidget {
               if (index == 9) {
                 assetName = 'assets/vectors/free_cup.svg';
                 text = 'Бесплатно';
-              } else if (index < 5) {
+              } else if (index < glassesCollected) {
                 assetName = 'assets/vectors/cup_filled.svg';
-                text = '01.01.24';
+                text = '';
               } else {
                 assetName = 'assets/vectors/cup.svg';
                 text = '';
@@ -167,7 +244,8 @@ class BonusSystemWidget extends StatelessWidget {
                   ),
                   Text(
                     text,
-                    style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 12, fontWeight: FontWeight.w500),
                   ),
                 ],
               );
@@ -178,8 +256,6 @@ class BonusSystemWidget extends StatelessWidget {
     );
   }
 }
-
-
 
 class MenuWidget extends StatelessWidget {
   final List<MenuItem> menuItems;
@@ -230,11 +306,11 @@ class MenuWidget extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     child: SvgPicture.asset(
-                  'assets/vectors/latte.svg',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.contain,
-                ),
+                      'assets/vectors/latte.svg',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -315,11 +391,11 @@ class MenuWidget extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     child: SvgPicture.asset(
-                  'assets/vectors/cup_filled.svg',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.contain,
-                ),
+                      'assets/vectors/cup_filled.svg',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   Expanded(
                     child: Padding(
@@ -364,4 +440,3 @@ class MenuWidget extends StatelessWidget {
     );
   }
 }
-

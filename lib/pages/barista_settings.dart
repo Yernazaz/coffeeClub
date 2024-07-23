@@ -104,18 +104,7 @@ class BaristaSettingsPage extends StatelessWidget {
                       ),
                     );
                   },
-                ),
-                IconButton(
-                  icon: Icon(Icons.coffee, color: Colors.brown),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BaristaInfoPage(),
-                      ),
-                    );
-                  },
-                ),
+                )
               ],
             ),
           ),

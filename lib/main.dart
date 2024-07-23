@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/pages/notifications_promotions.dart';
@@ -11,8 +10,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/pages/coffee_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_app/backend/user/user_service.dart';
+import 'package:flutter_app/backend/user/auth_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
+import 'package:flutter_app/pages/coffee_shop.dart';
+import 'package:flutter_app/pages/barista_qr_code.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,32 +28,54 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  Future<bool> checkLoggedIn() async {
+  Future<String?> checkLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? accessToken = prefs.getString('access_token');
-    return accessToken != null && accessToken.isNotEmpty;
+    String? refreshTokenPref = prefs.getString('refresh');
+    if (refreshTokenPref == null || refreshTokenPref.isEmpty) {
+      return null;
+    }
+    AuthService authService = AuthService();
+    try {
+      await authService.refreshToken(refreshTokenPref);
+    } catch (e) {
+      return null;
+    }
+    String? accessToken = prefs.getString('access');
+    String? userRole = prefs.getString('user_role');
+    if (accessToken != null && accessToken.isNotEmpty) {
+      return userRole;
+    }
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<bool>(
+    return FutureBuilder<String?>(
       future: checkLoggedIn(),
       builder: (context, snapshot) {
-        
-         
-       
-           
-            return MaterialApp(
-              home: MainPage(), // Navigate to MainPage if logged in
-            );
-          } 
-        
-      
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        } else if (snapshot.data != null) {
+          return MaterialApp(
+            home: MainPage(
+                userRole: snapshot.data!), // Navigate to MainPage if logged in
+          );
+        } else {
+          return MaterialApp(
+            home: RegisterPage(), // Navigate to RegisterPage if not logged in
+          );
+        }
+      },
     );
   }
 }
 
 class MainPage extends StatefulWidget {
+  final String userRole;
+  MainPage({required this.userRole});
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -58,12 +83,16 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    HomePage(), // Your existing pages
-    QrCode(),
+  static final List<Widget> _customerOptions = <Widget>[
+    HomePageWidget(), // Your existing pages
     BestPlaces(),
-    NotificationsPromotions(),
+    // NotificationsPromotions(),
     CoffeeMap(),
+    SettingsPage(),
+  ];
+
+  static final List<Widget> _baristaOptions = <Widget>[
+    QRCodeScannerPage(), // Barista's page
   ];
 
   void _onItemTapped(int index) {
@@ -115,63 +144,56 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isCustomer = widget.userRole == 'customer';
+    final widgetOptions = isCustomer ? _customerOptions : _baristaOptions;
+
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/vectors/home.svg',
-              width: 24,
-              height: 24,
-            ),
-            label:
-                'Главное', // Still provide a label for accessibility purposes
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/vectors/qrcode.svg',
-              width: 24,
-              height: 24,
-            ),
-            label: 'Карта', // Still provide a label for accessibility purposes
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/vectors/thunder.svg',
-              width: 24,
-              height: 24,
-            ),
-            label:
-                'QR Code', // Still provide a label for accessibility purposes
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/vectors/bell.svg',
-              width: 24,
-              height: 24,
-            ),
-            label:
-                'Лучшие кофейни', // Still provide a label for accessibility purposes
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/vectors/settings.svg',
-              width: 24,
-              height: 24,
-            ),
-            label:
-                'Уведомления', // Still provide a label for accessibility purposes
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-      ),
+      body: widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: isCustomer
+          ? BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/vectors/home.svg',
+                    width: 24,
+                    height: 24,
+                  ),
+                  label: 'Главное',
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/vectors/thunder.svg',
+                    width: 24,
+                    height: 24,
+                  ),
+                  label: 'Best Places',
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/vectors/MAP.svg',
+                    width: 24,
+                    height: 24,
+                  ),
+                  label: 'Map',
+                ),
+                BottomNavigationBarItem(
+                  icon: SvgPicture.asset(
+                    'assets/vectors/settings.svg',
+                    width: 24,
+                    height: 24,
+                  ),
+                  label: 'Settings',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              selectedItemColor: Colors.amber[800],
+              unselectedItemColor: Colors.grey,
+              onTap: _onItemTapped,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+            )
+          : null,
     );
   }
 }

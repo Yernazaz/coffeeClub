@@ -15,7 +15,7 @@ class UserLocation {
 
 Future<String?> getAccessToken() async {
   final prefs = await SharedPreferences.getInstance();
-  return prefs.getString('access_token');
+  return prefs.getString('access');
 }
 
 Future<void> sendUserLocation(UserLocation location, String token) async {

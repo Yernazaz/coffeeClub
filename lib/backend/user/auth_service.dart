@@ -38,7 +38,7 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
 
       // Save user info to Shared Preferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -72,7 +72,7 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
 
       // Update the access token in Shared Preferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -82,5 +82,15 @@ class AuthService {
     } else {
       throw Exception('Failed to refresh token');
     }
+  }
+
+  Future<void> logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('refresh');
+    await prefs.remove('access');
+    await prefs.remove('user_id');
+    await prefs.remove('user_name');
+    await prefs.remove('user_phone');
+    await prefs.remove('user_role');
   }
 }

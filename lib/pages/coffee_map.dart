@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
 import 'dart:ui' as ui;
@@ -13,20 +14,29 @@ class CoffeeMap extends StatefulWidget {
 class _CoffeeMapState extends State<CoffeeMap> {
   late GoogleMapController _controller;
   final Set<Marker> _markers = {};
-  LatLng _initialPosition = const LatLng(78.654605, 108.998618);
+  late LatLng _initialPosition;
   bool _isLoading = true;
   CoffeeShop? _selectedCoffeeShop;
 
   @override
   void initState() {
     super.initState();
+    _determinePosition();
     _fetchCoffeeShopCoordinates();
   }
 
-  Future<Uint8List> _getBytesFromCanvas(String text) async {
+  Future<void> _determinePosition() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _initialPosition = LatLng(position.latitude, position.longitude);
+    });
+  }
+
+  Future<Uint8List> _getBytesFromCanvas(String text, Color color) async {
     final ui.PictureRecorder pictureRecorder = ui.PictureRecorder();
     final Canvas canvas = Canvas(pictureRecorder);
-    final Paint paint = Paint()..color = Colors.purple;
+    final Paint paint = Paint()..color = color;
 
     const int width = 200;
     const int height = 100;
@@ -89,7 +99,8 @@ class _CoffeeMapState extends State<CoffeeMap> {
       });
 
       for (var shop in coffeeShops) {
-        final Uint8List markerIcon = await _getBytesFromCanvas(shop.name);
+        final Uint8List markerIcon =
+            await _getBytesFromCanvas(shop.name, Colors.purple);
         setState(() {
           _markers.add(Marker(
             markerId: MarkerId(shop.id.toString()),
@@ -97,11 +108,11 @@ class _CoffeeMapState extends State<CoffeeMap> {
             onTap: () {
               _onMarkerTapped(shop);
             },
-          )
-              // icon: BitmapDescriptor.bytes(markerIcon)),
-              );
+            // icon: BitmapDescriptor.fromBytes(markerIcon),
+          ));
         });
       }
+
       setState(() {
         _isLoading = false;
       });
@@ -132,6 +143,8 @@ class _CoffeeMapState extends State<CoffeeMap> {
                     zoom: 10.0,
                   ),
                   markers: _markers,
+                  myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
                 ),
           if (_selectedCoffeeShop != null) _buildInfoWindow(),
         ],

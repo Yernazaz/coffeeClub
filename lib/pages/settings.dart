@@ -3,24 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(CoffeeClubApp());
-  });
-}
-
-class CoffeeClubApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SettingsPage(),
-    );
-  }
-}
-
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -68,7 +50,9 @@ class SettingsPage extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         radius: 30,
                       ),
-                      SizedBox(width: 16), // Adjust the space between avatar and card
+                      SizedBox(
+                          width:
+                              16), // Adjust the space between avatar and card
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -168,35 +152,6 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/vectors/vector_25_x2.svg', width: 24, height: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/vectors/vector_115_x2.svg', width: 24, height: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/vectors/vector_55_x2.svg', width: 24, height: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/vectors/vector_9_x2.svg', width: 24, height: 24),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset('assets/vectors/vector_x2.svg', width: 24, height: 24),
-            label: '',
-          ),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.brown,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
       ),
     );
   }

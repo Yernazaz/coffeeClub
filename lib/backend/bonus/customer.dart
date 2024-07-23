@@ -8,7 +8,7 @@ class CustomerBonus {
 
   Future<String> _getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('token') ?? '';
+    return prefs.getString('access') ?? '';
   }
 
   Future<Map<String, dynamic>> generateQr(int id) async {
@@ -21,9 +21,10 @@ class CustomerBonus {
       },
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return jsonDecode(response.body);
     } else {
+      print(response.body);
       throw Exception('Failed to load data');
     }
   }
@@ -57,10 +58,10 @@ class CustomerBonus {
       },
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return jsonDecode(response.body);
     } else {
-      throw Exception('Failed to load data');
+      throw Exception(response.body);
     }
   }
 }
