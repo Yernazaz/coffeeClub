@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
 import 'package:flutter_app/pages/coffee_shop.dart';
 import 'package:flutter_app/pages/barista_qr_code.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,23 +51,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String?>(
-      future: checkLoggedIn(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else if (snapshot.data != null) {
-          return MaterialApp(
-            home: MainPage(
-                userRole: snapshot.data!), // Navigate to MainPage if logged in
-          );
-        } else {
-          return MaterialApp(
-            home: RegisterPage(), // Navigate to RegisterPage if not logged in
-          );
-        }
+    return ScreenUtilInit(
+      designSize: Size(375, 812),
+      builder: (context, child) {
+        return FutureBuilder<String?>(
+          future: checkLoggedIn(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.data != null) {
+              return MaterialApp(
+                home: MainPage(
+                  userRole: snapshot.data!,
+                ), // Navigate to MainPage if logged in
+              );
+            } else {
+              return MaterialApp(
+                home:
+                    RegisterPage(), // Navigate to RegisterPage if not logged in
+              );
+            }
+          },
+        );
       },
     );
   }
@@ -156,38 +164,38 @@ class _MainPageState extends State<MainPage> {
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/vectors/home.svg',
-                    width: 24,
-                    height: 24,
+                    width: 24.w,
+                    height: 24.h,
                   ),
                   label: 'Главное',
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/vectors/thunder.svg',
-                    width: 24,
-                    height: 24,
+                    width: 24.w,
+                    height: 24.h,
                   ),
                   label: 'Best Places',
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/vectors/MAP.svg',
-                    width: 24,
-                    height: 24,
+                    width: 24.w,
+                    height: 24.h,
                   ),
                   label: 'Map',
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/vectors/settings.svg',
-                    width: 24,
-                    height: 24,
+                    width: 24.w,
+                    height: 24.h,
                   ),
                   label: 'Settings',
                 ),
               ],
               currentIndex: _selectedIndex,
-              selectedItemColor: Colors.amber[800],
+              selectedItemColor: Colors.grey,
               unselectedItemColor: Colors.grey,
               onTap: _onItemTapped,
               showSelectedLabels: false,

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/user/auth_service.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'sms_verification_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   // Mask formatter for Kazakhstan phone number format
   final _phoneMaskFormatter = MaskTextInputFormatter(
-    mask: '+7##########',
+    mask: '+7 ### ### ## ##',
     filter: {"#": RegExp(r'[0-9]')},
     initialText: '+7',
   );
@@ -33,14 +34,14 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
-      print(
-          'Sending OTP to: ${_phoneController.text}, Name: ${_nameController.text}');
-      await _authService.sendOtp(_phoneController.text, _nameController.text);
+      String phoneNumber = _phoneController.text.replaceAll(RegExp(r'\s+'), '');
+      print('Sending OTP to: $phoneNumber, Name: ${_nameController.text}');
+      await _authService.sendOtp(phoneNumber, _nameController.text);
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => SmsVerificationPage(
-            phone: _phoneController.text,
+            phone: phoneNumber,
           ),
         ),
       );
@@ -72,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 right: 0,
                 child: Container(
                   color: Color(0xFF4B3832),
-                  padding: EdgeInsets.fromLTRB(20, 60, 20, 70),
+                  padding: EdgeInsets.fromLTRB(20.w, 60.h, 20.w, 70.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -81,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         style: GoogleFonts.getFont(
                           'Roboto Condensed',
                           fontWeight: FontWeight.w800,
-                          fontSize: 32,
+                          fontSize: 32.sp,
                           color: Color(0xFFFFFFFF),
                         ),
                       ),
@@ -90,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         style: GoogleFonts.getFont(
                           'Sanchez',
                           fontWeight: FontWeight.w400,
-                          fontSize: 60,
+                          fontSize: 60.sp,
                           color: Color(0xFFFFF4E6),
                         ),
                       ),
@@ -99,43 +100,43 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
               Positioned(
-                top: 180,
+                top: 180.h,
                 child: SvgPicture.asset(
                   'assets/vectors/container_x2.svg',
                   width: MediaQuery.of(context).size.width,
-                  height: 165.5,
+                  height: 165.5.h,
                   fit: BoxFit.cover,
                 ),
               ),
               Positioned(
                 right: 0,
-                top: 140,
+                top: 140.h,
                 child: Image.asset(
                   'assets/images/image_15.png',
-                  width: 180,
-                  height: 195,
+                  width: 180.w,
+                  height: 195.h,
                 ),
               ),
               Positioned(
-                right: 130,
-                top: 230,
+                right: 130.w,
+                top: 230.h,
                 child: SvgPicture.asset(
                   'assets/vectors/star_11_x2.svg',
-                  width: 11,
-                  height: 12,
+                  width: 11.w,
+                  height: 12.h,
                 ),
               ),
               Positioned(
-                right: 50,
-                top: 180,
+                right: 50.w,
+                top: 180.h,
                 child: SvgPicture.asset(
                   'assets/vectors/star_2_x2.svg',
-                  width: 14,
-                  height: 15,
+                  width: 14.w,
+                  height: 15.h,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(31.2, 380, 30.5, 0),
+                padding: EdgeInsets.fromLTRB(31.2.w, 380.h, 30.5.w, 0),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -147,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: GoogleFonts.getFont(
                             'Roboto Condensed',
                             fontWeight: FontWeight.w500,
-                            fontSize: 32,
+                            fontSize: 32.sp,
                             color: Color(0xFF4B3832),
                           ),
                         ),
@@ -164,7 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             style: GoogleFonts.getFont(
                               'Roboto Condensed',
                               fontWeight: FontWeight.w500,
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               decoration: TextDecoration.underline,
                               color: Color(0xFFBE9B7B),
                             ),
@@ -172,14 +173,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 20.h),
                     Container(
-                      margin: EdgeInsets.only(bottom: 14),
+                      margin: EdgeInsets.only(bottom: 14.h),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 11, vertical: 1),
+                          EdgeInsets.symmetric(horizontal: 11.w, vertical: 1.h),
                       decoration: BoxDecoration(
                         color: Color(0xFFFFF4E6),
-                        borderRadius: BorderRadius.circular(11),
+                        borderRadius: BorderRadius.circular(11.r),
                       ),
                       child: TextField(
                         controller: _nameController,
@@ -194,25 +195,25 @@ class _RegisterPageState extends State<RegisterPage> {
                           hintStyle: GoogleFonts.getFont(
                             'Roboto Condensed',
                             fontWeight: FontWeight.w300,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             color: Color(0xFF4B3832).withOpacity(0.6),
                           ),
                         ),
                         style: GoogleFonts.getFont(
                           'Roboto Condensed',
                           fontWeight: FontWeight.w300,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           color: Color(0xFF4B3832),
                         ),
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(bottom: 40),
+                      margin: EdgeInsets.only(bottom: 40.h),
                       padding:
-                          EdgeInsets.symmetric(horizontal: 11, vertical: 1),
+                          EdgeInsets.symmetric(horizontal: 11.w, vertical: 1.h),
                       decoration: BoxDecoration(
                         color: Color(0xFFFFF4E6),
-                        borderRadius: BorderRadius.circular(11),
+                        borderRadius: BorderRadius.circular(11.r),
                       ),
                       child: TextField(
                         controller: _phoneController,
@@ -226,14 +227,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           hintStyle: GoogleFonts.getFont(
                             'Roboto Condensed',
                             fontWeight: FontWeight.w300,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             color: Color(0xFF4B3832).withOpacity(0.6),
                           ),
                         ),
                         style: GoogleFonts.getFont(
                           'Roboto Condensed',
                           fontWeight: FontWeight.w300,
-                          fontSize: 16,
+                          fontSize: 16.sp,
                           color: Color(0xFF4B3832),
                         ),
                       ),
@@ -241,10 +242,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     GestureDetector(
                       onTap: _sendOtp,
                       child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
                         decoration: BoxDecoration(
                           color: Color(0xFF4B3832),
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: Center(
                           child: _isLoading
@@ -257,7 +258,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   style: GoogleFonts.getFont(
                                     'Roboto Condensed',
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 16,
+                                    fontSize: 16.sp,
                                     color: Color(0xFFFFF4E6),
                                   ),
                                 ),

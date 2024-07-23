@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/backend/user/auth_service.dart';
 import 'package:flutter_app/pages/barista_qr_code.dart';
 import 'package:flutter_app/pages/coffee_shop.dart';
 import 'package:flutter_app/pages/register_page.dart';
@@ -63,6 +64,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           ),
                           GestureDetector(
                             onTap: () {
+                              AuthService().logout();
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -351,135 +353,53 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              CrossAxisAlignment.center,
                                           children: [
-                                            Container(
-                                              margin: const EdgeInsets.fromLTRB(
-                                                  0, 0, 10, 0),
-                                              child: SizedBox(
-                                                width: 152,
-                                                child: Text(
-                                                  coffeeShop.name,
-                                                  style: GoogleFonts.getFont(
-                                                    'Roboto Condensed',
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 20,
-                                                    height: 1,
-                                                    color:
-                                                        const Color(0xFF000000),
-                                                  ),
+                                            Expanded(
+                                              child: Text(
+                                                coffeeShop.name,
+                                                style: GoogleFonts.getFont(
+                                                  'Roboto Condensed',
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 20,
+                                                  height: 1,
+                                                  color:
+                                                      const Color(0xFF000000),
                                                 ),
                                               ),
                                             ),
-                                            Container(
-                                              margin: const EdgeInsets.fromLTRB(
-                                                  0, 2, 0, 3),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Container(
-                                                    margin: const EdgeInsets
-                                                        .fromLTRB(0, 0, 4, 0),
-                                                    child: SizedBox(
-                                                      width: 91,
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .fromLTRB(
-                                                                    0, 0, 4, 0),
-                                                            child: SizedBox(
-                                                              width: 15,
-                                                              height: 15,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/vectors/vector_56_x2.svg',
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .fromLTRB(
-                                                                    0, 0, 4, 0),
-                                                            child: SizedBox(
-                                                              width: 15,
-                                                              height: 15,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/vectors/vector_7_x2.svg',
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .fromLTRB(
-                                                                    0, 0, 4, 0),
-                                                            child: SizedBox(
-                                                              width: 15,
-                                                              height: 15,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/vectors/vector_24_x2.svg',
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                const EdgeInsets
-                                                                    .fromLTRB(
-                                                                    0, 0, 4, 0),
-                                                            child: SizedBox(
-                                                              width: 15,
-                                                              height: 15,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                'assets/vectors/vector_19_x2.svg',
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 15,
-                                                            height: 15,
-                                                            child: SvgPicture
-                                                                .asset(
-                                                              'assets/vectors/vector_112_x2.svg',
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
+                                            Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                  size: 16,
+                                                ),
+                                                SizedBox(width: 2),
+                                                Text(
+                                                  coffeeShop.rating.toString(),
+                                                  style: GoogleFonts.getFont(
+                                                    'Roboto Condensed',
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 14,
+                                                    height: 1,
+                                                    color:
+                                                        const Color(0xFF4B3832),
                                                   ),
-                                                  Container(
-                                                    margin: const EdgeInsets
-                                                        .fromLTRB(0, 5, 0, 0),
-                                                    child: Text(
-                                                      '${coffeeShop.rating} оценок',
-                                                      style:
-                                                          GoogleFonts.getFont(
-                                                        'Roboto Condensed',
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 10,
-                                                        height: 1,
-                                                        color: const Color(
-                                                            0xFF4B3832),
-                                                      ),
-                                                    ),
+                                                ),
+                                                SizedBox(width: 4),
+                                                Text(
+                                                  'оценок',
+                                                  style: GoogleFonts.getFont(
+                                                    'Roboto Condensed',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12,
+                                                    height: 1,
+                                                    color:
+                                                        const Color(0xFF4B3832),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -530,18 +450,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             Container(
                                               margin: const EdgeInsets.fromLTRB(
                                                   0, 5, 8, 4),
-                                              child: SizedBox(
-                                                width: 250,
-                                                child: Text(
-                                                  'ЕСТЬ БОНУСЫ',
-                                                  style: GoogleFonts.getFont(
-                                                    'Roboto Condensed',
-                                                    fontWeight: FontWeight.w800,
-                                                    fontSize: 16,
-                                                    height: 1,
-                                                    color:
-                                                        const Color(0xFF03AD00),
-                                                  ),
+                                              child: Text(
+                                                'ЕСТЬ БОНУСЫ',
+                                                style: GoogleFonts.getFont(
+                                                  'Roboto Condensed',
+                                                  fontWeight: FontWeight.w800,
+                                                  fontSize: 16,
+                                                  height: 1,
+                                                  color:
+                                                      const Color(0xFF03AD00),
                                                 ),
                                               ),
                                             ),

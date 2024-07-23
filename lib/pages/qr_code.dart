@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'dart:convert';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_app/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/bonus/customer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -112,6 +111,7 @@ class _QrCodeState extends State<QrCode> {
                   fontSize: 56,
                   height: 1,
                   color: Color(0xFF4B3832),
+                  decoration: TextDecoration.none,
                 ),
               ),
             ),
@@ -126,6 +126,7 @@ class _QrCodeState extends State<QrCode> {
                   fontSize: 31,
                   height: 1,
                   color: Color(0xFF4B3832),
+                  decoration: TextDecoration.none,
                 ),
               ),
             ),

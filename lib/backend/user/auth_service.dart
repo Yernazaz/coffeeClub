@@ -6,7 +6,7 @@ class AuthService {
   static const String baseUrl =
       'https://coffee-club-e65fb60d8d11.herokuapp.com/api';
 
-  Future<void> sendOtp(String phone, String name) async {
+  Future<void> sendOtp(String phone, [String name = '']) async {
     final url = Uri.parse('$baseUrl/phone/');
     final response = await http.post(
       url,
@@ -15,7 +15,7 @@ class AuthService {
       },
       body: json.encode({
         'phone': phone,
-        'name': name,
+        if (name.isNotEmpty) 'name': name,
       }),
     );
 
