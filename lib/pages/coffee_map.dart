@@ -194,7 +194,8 @@ class _CoffeeMapState extends State<CoffeeMap> {
                   ),
                   Text(
                       'Адрес: ${_selectedCoffeeShop!.street}, ${_selectedCoffeeShop!.city}'),
-                  const Text('Расстояние: 00 км, 10:00 - 22:00'),
+                  Text(
+                      'Расстояние: ${_selectedCoffeeShop!.distance}, ${_selectedCoffeeShop!.openingHours} - 22:00'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
