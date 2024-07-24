@@ -99,7 +99,8 @@ class CoffeeShopPage extends StatelessWidget {
                 Text(
                     '${coffeeShop.street}, ${coffeeShop.city}, ${coffeeShop.region}',
                     style: const TextStyle(fontSize: 16)),
-                const Text('Расстояние: 00 км', style: TextStyle(fontSize: 16)),
+                Text('Расстояние: ${coffeeShop.distance}',
+                    style: TextStyle(fontSize: 16)),
                 Text('График работы: ${coffeeShop.openingHours} - 22:00',
                     style: const TextStyle(fontSize: 16)),
                 const SizedBox(height: 16),

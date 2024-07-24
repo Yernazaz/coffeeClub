@@ -5,6 +5,7 @@ import 'package:flutter_app/pages/coffee_shop.dart';
 import 'package:flutter_app/pages/register_page.dart';
 import 'package:flutter_app/pages/coffee_shop.dart'; // Import the CoffeeShopPage
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -286,7 +287,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     FutureBuilder<List<CoffeeShop>>(
-                      future: CoffeeShopsService().fetchCoffeeShops(),
+                      future: () async {
+                        Position position = await Geolocator.getCurrentPosition(
+                            desiredAccuracy: LocationAccuracy.high);
+                        return CoffeeShopsService().fetchCoffeeShops(
+                            position.latitude, position.longitude);
+                      }(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -427,7 +433,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         child: Align(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            'Расстояние: 00 км, ${coffeeShop.openingHours}',
+                                            'Расстояние: ${coffeeShop.distance}, ${coffeeShop.openingHours}',
                                             style: GoogleFonts.getFont(
                                               'Roboto Condensed',
                                               fontWeight: FontWeight.w400,

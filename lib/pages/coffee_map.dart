@@ -89,9 +89,11 @@ class _CoffeeMapState extends State<CoffeeMap> {
 
   void _fetchCoffeeShopCoordinates() async {
     try {
-      List<CoffeeShop> coffeeShops =
-          await CoffeeShopsService().fetchCoffeeShops();
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
 
+      List<CoffeeShop> coffeeShops = await CoffeeShopsService()
+          .fetchCoffeeShops(position.latitude, position.longitude);
       // Debugging: Print the list of coffee shops fetched
       print('Fetched coffee shops: ${coffeeShops.length}');
       coffeeShops.forEach((shop) {

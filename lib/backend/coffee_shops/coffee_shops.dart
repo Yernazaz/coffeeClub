@@ -21,6 +21,7 @@ class CoffeeShop {
   final double longitude;
   final String description;
   final List<MenuItem> menuItems;
+  final String distance;
 
   CoffeeShop({
     required this.id,
@@ -42,6 +43,7 @@ class CoffeeShop {
     required this.longitude,
     required this.description,
     required this.menuItems,
+    required this.distance,
   });
 
   factory CoffeeShop.fromJson(Map<String, dynamic> json) {
@@ -67,6 +69,7 @@ class CoffeeShop {
       menuItems: (json['menu_items'] as List)
           .map((item) => MenuItem.fromJson(item))
           .toList(),
+      distance: json['distance'],
     );
   }
 }
@@ -123,9 +126,11 @@ class CoffeeShopsService {
   static const String coordinatesUrl =
       'https://coffee-club-e65fb60d8d11.herokuapp.com/coffeeshops/coffee-shops/coordinates/';
 
-  Future<List<CoffeeShop>> fetchCoffeeShops() async {
-    final response = await http
-        .get(Uri.parse(apiUrl), headers: {'accept': 'application/json'});
+  Future<List<CoffeeShop>> fetchCoffeeShops(
+      double latitude, double longitude) async {
+    final response = await http.get(
+        Uri.parse('$apiUrl?latitude=$latitude&longitude=$longitude'),
+        headers: {'accept': 'application/json'});
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body)['results'];
