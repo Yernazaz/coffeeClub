@@ -85,37 +85,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 color: const Color(0xFF4B3832),
                               ),
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                AuthService().logout();
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RegisterPage()),
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF4B3832),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Logout',
-                                      style: GoogleFonts.getFont(
-                                        'Roboto Condensed',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                        height: 1,
-                                        color: Color(0xFFFFF4E6),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -361,7 +330,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               image: DecorationImage(
                                                 fit: BoxFit.cover,
                                                 image: NetworkImage(
-                                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s',
+                                                  'https://www.coffeebeancompany.co.uk/app/uploads/2017/04/Coffee-Shop-1024x765.jpg',
                                                 ),
                                               ),
                                             ),

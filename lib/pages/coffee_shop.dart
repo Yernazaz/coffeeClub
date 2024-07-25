@@ -67,7 +67,7 @@ class CoffeeShopPage extends StatelessWidget {
                   bottomRight: Radius.circular(11),
                 ),
                 child: Image.network(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s',
+                  'https://www.coffeebeancompany.co.uk/app/uploads/2017/04/Coffee-Shop-1024x765.jpg',
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.cover,

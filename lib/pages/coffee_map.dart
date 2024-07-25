@@ -127,6 +127,16 @@ class _CoffeeMapState extends State<CoffeeMap> {
     setState(() {
       _selectedCoffeeShop = shop;
     });
+    _showBottomSheet();
+  }
+
+  void _showBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return _buildInfoWindow();
+      },
+    );
   }
 
   @override
@@ -148,91 +158,81 @@ class _CoffeeMapState extends State<CoffeeMap> {
                   myLocationButtonEnabled: true,
                   myLocationEnabled: true,
                 ),
-          if (_selectedCoffeeShop != null) _buildInfoWindow(),
         ],
       ),
     );
   }
 
   Widget _buildInfoWindow() {
-    return Positioned(
-      bottom: 50,
-      left: 10,
-      right: 10,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(10.0)),
-              child: Image.network(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s',
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 150,
-              ),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.4,
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            child: Image.network(
+              'https://www.coffeebeancompany.co.uk/app/uploads/2017/04/Coffee-Shop-1024x765.jpg',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 150,
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8, 8, 4, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _selectedCoffeeShop!.name,
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Row(
-                    children: [
-                      const Icon(Icons.star, color: Colors.yellow, size: 20),
-                      Text('${_selectedCoffeeShop!.rating} (100 оценок)'),
-                    ],
-                  ),
-                  Text(
-                      'Адрес: ${_selectedCoffeeShop!.street}, ${_selectedCoffeeShop!.city}'),
-                  Text(
-                      'Расстояние: ${_selectedCoffeeShop!.distance}, ${_selectedCoffeeShop!.openingHours} - 22:00'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'ЕСТЬ БОНУСЫ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800,
-                            fontSize: 16,
-                            height: 1,
-                            color: Color(0xFF03AD00)),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.favorite_border),
-                            onPressed: () {
-                              // Handle favorite button
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.close),
-                            onPressed: () {
-                              setState(() {
-                                _selectedCoffeeShop = null;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 4, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _selectedCoffeeShop!.name,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  children: [
+                    const Icon(Icons.star, color: Colors.yellow, size: 20),
+                    Text('${_selectedCoffeeShop!.rating} (100 оценок)'),
+                  ],
+                ),
+                Text(
+                    'Адрес: ${_selectedCoffeeShop!.street}, ${_selectedCoffeeShop!.city}'),
+                Text(
+                    'Расстояние: ${_selectedCoffeeShop!.distance}, ${_selectedCoffeeShop!.openingHours} - 22:00'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'ЕСТЬ БОНУСЫ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16,
+                          height: 1,
+                          color: Color(0xFF03AD00)),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.favorite_border),
+                          onPressed: () {
+                            // Handle favorite button
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

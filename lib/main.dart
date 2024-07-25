@@ -168,36 +168,64 @@ class _MainPageState extends State<MainPage> {
                     'assets/vectors/home.svg',
                     width: 24.w,
                     height: 24.h,
+                    color: _selectedIndex == 0 ? Colors.brown : Colors.grey,
                   ),
                   label: 'Главное',
+                  activeIcon: SvgPicture.asset(
+                    'assets/vectors/home.svg',
+                    width: 24.w,
+                    height: 24.h,
+                    color: Colors.brown,
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/vectors/thunder.svg',
                     width: 24.w,
                     height: 24.h,
+                    color: _selectedIndex == 1 ? Colors.brown : Colors.grey,
                   ),
                   label: 'Best Places',
+                  activeIcon: SvgPicture.asset(
+                    'assets/vectors/thunder.svg',
+                    width: 24.w,
+                    height: 24.h,
+                    color: Colors.brown,
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/vectors/MAP.svg',
                     width: 24.w,
                     height: 24.h,
+                    color: _selectedIndex == 2 ? Colors.brown : Colors.grey,
                   ),
                   label: 'Map',
+                  activeIcon: SvgPicture.asset(
+                    'assets/vectors/MAP.svg',
+                    width: 24.w,
+                    height: 24.h,
+                    color: Colors.brown,
+                  ),
                 ),
                 BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/vectors/settings.svg',
                     width: 24.w,
                     height: 24.h,
+                    color: _selectedIndex == 3 ? Colors.brown : Colors.grey,
                   ),
                   label: 'Settings',
+                  activeIcon: SvgPicture.asset(
+                    'assets/vectors/settings.svg',
+                    width: 24.w,
+                    height: 24.h,
+                    color: Colors.brown,
+                  ),
                 ),
               ],
               currentIndex: _selectedIndex,
-              selectedItemColor: Colors.grey,
+              selectedItemColor: Colors.brown,
               unselectedItemColor: Colors.grey,
               onTap: _onItemTapped,
               showSelectedLabels: false,
@@ -207,3 +235,4 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+

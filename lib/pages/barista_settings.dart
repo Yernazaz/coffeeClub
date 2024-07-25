@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/pages/barista_info.dart';
 import 'package:flutter_app/pages/barista_qr_code.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_app/backend/user/auth_service.dart';
+import 'package:flutter_app/pages/register_page.dart';
+
 
 class BaristaSettingsPage extends StatelessWidget {
   @override
@@ -18,7 +21,7 @@ class BaristaSettingsPage extends StatelessWidget {
           },
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,14 +37,14 @@ class BaristaSettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 50),
+            SizedBox(height: 20),
             Center(
               child: CircleAvatar(
                 radius: 40,
                 backgroundColor: Colors.grey[300],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 50),
             buildInfoField('Алексей Андреев', ''),
             buildInfoField('+77777777777', ''),
             Text(
@@ -55,7 +58,7 @@ class BaristaSettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 70),
+            SizedBox(height: 40),
             Text(
               'Настройки приложения',
               style: GoogleFonts.getFont(
@@ -71,7 +74,17 @@ class BaristaSettingsPage extends StatelessWidget {
             buildInfoField('О приложении', ''),
             buildInfoField('Написать в поддержку', ''),
             buildInfoField('Связаться с владельцем кофейни', ''),
-            buildInfoField('Выйти с аккаунта', ''),
+            GestureDetector(
+              onTap: () {
+                                AuthService().logout();
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => RegisterPage()),
+                                );
+                              },
+              child: buildInfoField('Выйти с аккаунта', ''),
+            ),
           ],
         ),
       ),
@@ -104,7 +117,7 @@ class BaristaSettingsPage extends StatelessWidget {
                       ),
                     );
                   },
-                )
+                ),
               ],
             ),
           ),

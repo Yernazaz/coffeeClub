@@ -291,7 +291,7 @@ class BestPlaces extends StatelessWidget {
                             image: DecorationImage(
                               fit: BoxFit.cover,
                               image: NetworkImage(
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTV75u3ySWZClZ0gKauKayvQZ6P9ER2cLiIg&s'),
+                                  'https://www.coffeebeancompany.co.uk/app/uploads/2017/04/Coffee-Shop-1024x765.jpg'),
                             ),
                           ),
                           child: Container(
@@ -499,20 +499,6 @@ class BestPlaces extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.fromLTRB(31, 0, 31, 20),
-              child: SizedBox(
-                width: 41,
-                height: 55,
-                child: SvgPicture.asset(
-                  'assets/vectors/map_1_x2.svg',
-                  colorFilter: const ColorFilter.mode(
-                    Color(0xFF854442),
-                    BlendMode.srcIn,
                   ),
                 ),
               ),

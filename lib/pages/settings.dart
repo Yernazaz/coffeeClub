@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_app/backend/user/auth_service.dart';
+import 'package:flutter_app/pages/register_page.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -18,7 +20,7 @@ class SettingsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Coffee club',
+                  'Coffee Club',
                   style: GoogleFonts.getFont(
                     'Sanchez',
                     fontWeight: FontWeight.w400,
@@ -27,14 +29,8 @@ class SettingsPage extends StatelessWidget {
                     color: Color(0xFF4B3832),
                   ),
                 ),
-                SizedBox(width: 16), // Adjust the width as needed
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 20),
-                  width: 46,
-                  child: SvgPicture.asset(
-                    'assets/vectors/vector_29_x2.svg',
-                  ),
-                ),
+                
+                
               ],
             ),
             centerTitle: true,
@@ -102,33 +98,33 @@ class SettingsPage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 24),
-                  ListTile(
-                    trailing: SvgPicture.asset(
-                      'assets/vectors/group_3_x2.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                    title: Text('Инструменты для владельца кафе'),
-                    onTap: () {},
-                    tileColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  ListTile(
-                    trailing: SvgPicture.asset(
-                      'assets/vectors/vector_16_x2.svg',
-                      width: 24,
-                      height: 24,
-                    ),
-                    title: Text('Инструменты для кафе-бариста'),
-                    onTap: () {},
-                    tileColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
+                  // ListTile(
+                  //   trailing: SvgPicture.asset(
+                  //     'assets/vectors/group_3_x2.svg',
+                  //     width: 24,
+                  //     height: 24,
+                  //   ),
+                  //   title: Text('Инструменты для владельца кафе'),
+                  //   onTap: () {},
+                  //   tileColor: Colors.white,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(8.0),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 8),
+                  // ListTile(
+                  //   trailing: SvgPicture.asset(
+                  //     'assets/vectors/vector_16_x2.svg',
+                  //     width: 24,
+                  //     height: 24,
+                  //   ),
+                  //   title: Text('Инструменты для кафе-бариста'),
+                  //   onTap: () {},
+                  //   tileColor: Colors.white,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(8.0),
+                  //   ),
+                  // ),
                   SizedBox(height: 8),
                   ListTile(
                     title: Text('Менеджер кофейни'),
@@ -142,6 +138,32 @@ class SettingsPage extends StatelessWidget {
                   ListTile(
                     title: Text('Администратор кофейни'),
                     onTap: () {},
+                    tileColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  ListTile(
+                    title: GestureDetector(
+                      onTap: () {
+                        AuthService().logout();
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterPage()),
+                        );
+                      },
+                      child: Text(
+                        'Выйти',
+                        style: GoogleFonts.getFont(
+                          'Roboto Condensed',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: Color(0xFF4B3832),
+                        ),
+                      ),
+                    ),
                     tileColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
