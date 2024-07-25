@@ -17,6 +17,8 @@ import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
 import 'package:flutter_app/pages/coffee_shop.dart';
 import 'package:flutter_app/pages/barista_qr_code.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

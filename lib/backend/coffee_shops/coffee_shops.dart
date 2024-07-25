@@ -1,5 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class CoffeeShop {
   final int id;
@@ -128,12 +133,24 @@ class CoffeeShopsService {
 
   Future<List<CoffeeShop>> fetchCoffeeShops(
       double latitude, double longitude) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Check if cache exists
+    String? cachedData = prefs.getString('coffeeShopsCache');
+    if (cachedData != null) {
+      List jsonResponse = json.decode(cachedData);
+      return jsonResponse.map((shop) => CoffeeShop.fromJson(shop)).toList();
+    }
+
+    // Fetch data from the API if cache does not exist
     final response = await http.get(
         Uri.parse('$apiUrl?latitude=$latitude&longitude=$longitude'),
         headers: {'accept': 'application/json'});
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body)['results'];
+      prefs.setString(
+          'coffeeShopsCache', json.encode(jsonResponse)); // Cache the response
       return jsonResponse.map((shop) => CoffeeShop.fromJson(shop)).toList();
     } else {
       throw Exception('Failed to load coffee shops');
@@ -141,14 +158,42 @@ class CoffeeShopsService {
   }
 
   Future<List<CoffeeShop>> fetchCoffeeShopCoordinates() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Check if cache exists
+    String? cachedData = prefs.getString('coffeeShopsCoordinatesCache');
+    if (cachedData != null) {
+      List jsonResponse = json.decode(cachedData);
+      return jsonResponse.map((coord) => CoffeeShop.fromJson(coord)).toList();
+    }
+
+    // Fetch data from the API if cache does not exist
     final response = await http.get(Uri.parse(coordinatesUrl),
         headers: {'accept': 'application/json'});
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
+      prefs.setString('coffeeShopsCoordinatesCache',
+          json.encode(jsonResponse)); // Cache the response
       return jsonResponse.map((coord) => CoffeeShop.fromJson(coord)).toList();
     } else {
       throw Exception('Failed to load coffee shop coordinates');
+    }
+  }
+
+  Future<void> updateCoffeeShopsCache(double latitude, double longitude) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final response = await http.get(
+        Uri.parse('$apiUrl?latitude=$latitude&longitude=$longitude'),
+        headers: {'accept': 'application/json'});
+
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body)['results'];
+      prefs.setString(
+          'coffeeShopsCache', json.encode(jsonResponse)); // Update the cache
+    } else {
+      throw Exception('Failed to update coffee shops cache');
     }
   }
 }
