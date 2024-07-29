@@ -34,7 +34,8 @@ class _QrCodeState extends State<QrCode> {
         qrCode = qrCodeMap['qr_code'];
         validTill = DateTime.parse(qrCodeMap['valid_till']);
       });
-
+      print(qrCode);
+      print(validTill);
       if (DateTime.now().isAfter(validTill!)) {
         _refreshQrCode();
       } else {
@@ -67,9 +68,10 @@ class _QrCodeState extends State<QrCode> {
     try {
       CustomerBonus customerBonus = CustomerBonus();
       Map<String, dynamic> qrData = await customerBonus.refreshQr(widget.id);
+      print(qrData);
       setState(() {
-        qrCode = qrData['qr_code'];
-        validTill = DateTime.parse(qrData['valid_till']);
+        // qrCode = qrData['qr_code'];
+        validTill = DateTime.parse(qrData['new_valid_till']);
       });
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -77,6 +79,7 @@ class _QrCodeState extends State<QrCode> {
 
       _setRefreshTimer();
     } catch (e) {
+      print(widget.id);
       print('Error refreshing QR code: $e');
     }
   }
