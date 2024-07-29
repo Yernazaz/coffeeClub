@@ -64,6 +64,7 @@ class MyApp extends StatelessWidget {
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.data != null) {
+              print(snapshot.data!);
               return MaterialApp(
                 home: MainPage(
                   userRole: snapshot.data!,
@@ -235,4 +236,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
