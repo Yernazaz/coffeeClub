@@ -172,7 +172,7 @@ class BonusSystemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8),
@@ -199,7 +199,7 @@ class BonusSystemWidget extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5,
               crossAxisSpacing: 1,
-              mainAxisSpacing: 50,
+              mainAxisSpacing: 10,
             ),
             itemCount: 10,
             itemBuilder: (context, index) {

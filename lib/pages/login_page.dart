@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Регистрация',
+                          'Войти',
                           style: GoogleFonts.getFont(
                             'Roboto Condensed',
                             fontWeight: FontWeight.w500,

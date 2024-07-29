@@ -125,24 +125,24 @@ class SettingsPage extends StatelessWidget {
                   //     borderRadius: BorderRadius.circular(8.0),
                   //   ),
                   // ),
-                  SizedBox(height: 8),
-                  ListTile(
-                    title: Text('Менеджер кофейни'),
-                    onTap: () {},
-                    tileColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  ListTile(
-                    title: Text('Администратор кофейни'),
-                    onTap: () {},
-                    tileColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
+                  // SizedBox(height: 8),
+                  // ListTile(
+                  //   title: Text('Менеджер кофейни'),
+                  //   onTap: () {},
+                  //   tileColor: Colors.white,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(8.0),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 8),
+                  // ListTile(
+                  //   title: Text('Администратор кофейни'),
+                  //   onTap: () {},
+                  //   tileColor: Colors.white,
+                  //   shape: RoundedRectangleBorder(
+                  //     borderRadius: BorderRadius.circular(8.0),
+                  //   ),
+                  // ),
                   SizedBox(height: 8),
                   ListTile(
                     title: GestureDetector(

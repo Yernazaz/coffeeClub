@@ -152,7 +152,7 @@ class _CoffeeMapState extends State<CoffeeMap> {
                   },
                   initialCameraPosition: CameraPosition(
                     target: _initialPosition,
-                    zoom: 10.0,
+                    zoom: 16.0,
                   ),
                   markers: _markers,
                   myLocationButtonEnabled: true,
@@ -165,7 +165,7 @@ class _CoffeeMapState extends State<CoffeeMap> {
 
   Widget _buildInfoWindow() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.45,
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

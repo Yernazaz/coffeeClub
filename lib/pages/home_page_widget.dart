@@ -71,7 +71,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.fromLTRB(32, 0, 32, 6),
+                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 6),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -89,7 +89,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.fromLTRB(32, 0, 32, 7),
+                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 7),
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Row(
@@ -124,7 +124,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.fromLTRB(30, 0, 33, 7),
+                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 7),
                         child: Container(
                           decoration: BoxDecoration(
                             color: const Color(0xFFECECEC),
@@ -189,7 +189,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.fromLTRB(30, 0, 34, 15),
+                        margin: const EdgeInsets.fromLTRB(16, 0, 16, 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -307,7 +307,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   },
                                   child: Container(
                                     margin: const EdgeInsets.fromLTRB(
-                                        32, 0, 31, 13),
+                                        16, 0, 16, 13),
                                     decoration: BoxDecoration(
                                       color: const Color(0xFFFFFFFF),
                                       borderRadius: BorderRadius.circular(11),

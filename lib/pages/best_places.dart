@@ -34,7 +34,7 @@ class BestPlaces extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(32, 0, 31, 13),
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 13),
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFFFF),
@@ -269,7 +269,7 @@ class BestPlaces extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.fromLTRB(32, 0, 31, 42),
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 42),
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xFFFFFFFF),
