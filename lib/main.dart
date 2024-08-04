@@ -1,26 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/pages/notifications_promotions.dart';
-import 'package:flutter_app/pages/home_page_widget.dart';
-import 'package:flutter_app/pages/settings.dart';
-import 'package:flutter_app/pages/best_places.dart';
-import 'package:flutter_app/pages/qr_code.dart';
-import 'package:flutter_app/pages/register_page.dart';
+import 'package:flutter_app/pages/customer/home_page_widget.dart';
+import 'package:flutter_app/pages/customer/settings.dart';
+import 'package:flutter_app/pages/customer/best_places.dart';
+import 'package:flutter_app/pages/auth/register_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_app/pages/coffee_map.dart';
+import 'package:flutter_app/pages/customer/coffee_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_app/backend/user/user_service.dart';
 import 'package:flutter_app/backend/user/auth_service.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
-import 'package:flutter_app/pages/coffee_shop.dart';
-import 'package:flutter_app/pages/barista_qr_code.dart';
+import 'package:flutter_app/pages/barista/barista_qr_code.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_app/backend/utils.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -302,7 +296,7 @@ class _MainPageState extends State<MainPage> {
 
   Future<void> _sendLocationOnLogin() async {
     Position position = await _determinePosition();
-    String? token = await getAccessToken();
+    String? token = await getToken();
     if (token != null) {
       UserLocation location =
           UserLocation(lat: position.latitude, lng: position.longitude);

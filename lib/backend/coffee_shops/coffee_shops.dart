@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:logging/logging.dart';
+import 'package:flutter_app/backend/utils.dart';
 
 class CoffeeShop {
   final int id;
@@ -98,10 +99,9 @@ class MenuItem {
 }
 
 class CoffeeShopsService {
-  static const String apiUrl =
-      'https://coffee-club-e65fb60d8d11.herokuapp.com/coffeeshops/list-coffee-shops/';
+  static const String apiUrl = '$baseUrl/coffeeshops/list-coffee-shops/';
   static const String coordinatesUrl =
-      'https://coffee-club-e65fb60d8d11.herokuapp.com/coffeeshops/coffee-shops/coordinates/';
+      '$baseUrl/coffeeshops/coffee-shops/coordinates/';
 
   final CacheManager cacheManager = DefaultCacheManager();
   final Logger logger = Logger('CoffeeShopsService');

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/barista_info.dart';
-import 'package:flutter_app/pages/barista_qr_code.dart';
+import 'package:flutter_app/pages/barista/barista_info.dart';
+import 'package:flutter_app/pages/barista/barista_qr_code.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/user/auth_service.dart';
-import 'package:flutter_app/pages/register_page.dart';
+import 'package:flutter_app/pages/auth/register_page.dart';
 
 class BaristaSettingsPage extends StatelessWidget {
   @override

@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_app/backend/coffee_shops/coffee_shops.dart';
 import 'package:flutter_app/backend/bonus/customer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_app/pages/qr_code.dart';
+import 'package:flutter_app/pages/customer/qr_code.dart';
 
 class CoffeeShopPage extends StatelessWidget {
   final CoffeeShop coffeeShop;

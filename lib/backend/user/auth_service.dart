@@ -1,11 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/backend/utils.dart';
 
 class AuthService {
-  static const String baseUrl =
-      'https://coffee-club-e65fb60d8d11.herokuapp.com/api';
-
   Future<void> sendOtp(String phone, [String name = '']) async {
     final url = Uri.parse('$baseUrl/phone/');
     final response = await http.post(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_app/pages/barista_settings.dart';
-import 'package:flutter_app/pages/barista_qr_code.dart';
+import 'package:flutter_app/pages/barista/barista_settings.dart';
+import 'package:flutter_app/pages/barista/barista_qr_code.dart';
 import 'package:flutter_app/backend/bonus/barista.dart';
 
 class BaristaInfoPage extends StatefulWidget {

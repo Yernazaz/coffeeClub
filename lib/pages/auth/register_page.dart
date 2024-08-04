@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pages/login_page.dart';
+import 'package:flutter_app/pages/auth/login_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/user/auth_service.dart';
@@ -7,7 +7,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'sms_verification_page.dart';
-import 'package:flutter_app/pages/wave.dart';
+import 'package:flutter_app/pages/customer/wave.dart';
 
 class RegisterPage extends StatefulWidget {
   @override

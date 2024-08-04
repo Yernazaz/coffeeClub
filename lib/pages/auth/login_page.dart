@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_app/backend/user/auth_service.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_app/pages/register_page.dart';
+import 'package:flutter_app/pages/auth/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override

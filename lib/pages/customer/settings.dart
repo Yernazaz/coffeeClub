@@ -5,8 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/backend/user/auth_service.dart';
-import 'package:flutter_app/pages/register_page.dart';
-import 'package:flutter_app/pages/settings_edit.dart';
+import 'package:flutter_app/pages/auth/register_page.dart';
+import 'package:flutter_app/pages/customer/settings_edit.dart';
 
 class SettingsPage extends StatefulWidget {
   @override

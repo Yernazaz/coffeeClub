@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/backend/utils.dart';
 
 class UserLocation {
   final double lat;
@@ -15,14 +16,8 @@ class UserLocation {
   }
 }
 
-Future<String?> getAccessToken() async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getString('access');
-}
-
 Future<void> sendUserLocation(UserLocation location, String token) async {
-  final url = Uri.parse(
-      'https://coffee-club-e65fb60d8d11.herokuapp.com/api/user-location/');
+  final url = Uri.parse('$baseUrl/api/user-location/');
   final headers = {
     'accept': 'application/json',
     'Authorization': 'Bearer $token',
@@ -47,14 +42,14 @@ Future<void> updateUserCall({
   File? profilePic,
 }) async {
   final prefs = await SharedPreferences.getInstance();
-  final token = prefs.getString('access');
+  final token = await getToken();
   if (token == null) {
     throw Exception('No access token found');
   }
 
   var request = http.MultipartRequest(
     'PATCH',
-    Uri.parse('https://coffee-club-e65fb60d8d11.herokuapp.com/api/user/'),
+    Uri.parse('$baseUrl/api/user/'),
   );
 
   request.headers.addAll({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:flutter_app/pages/barista_info.dart';
-import 'package:flutter_app/pages/barista_settings.dart';
+import 'package:flutter_app/pages/barista/barista_info.dart';
+import 'package:flutter_app/pages/barista/barista_settings.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_app/backend/bonus/barista.dart';

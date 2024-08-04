@@ -1,18 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/backend/utils.dart';
 
 class CustomerBonus {
-  static const String baseUrl =
-      'https://coffee-club-e65fb60d8d11.herokuapp.com';
-
-  Future<String> _getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('access') ?? '';
-  }
-
   Future<Map<String, dynamic>> generateQr(int id) async {
-    final token = await _getToken();
+    final token = await getToken();
     final response = await http.post(
       Uri.parse('$baseUrl/bonuse/customer/generate-qr/$id/'),
       headers: {
@@ -30,7 +23,7 @@ class CustomerBonus {
   }
 
   Future<Map<String, dynamic>> refreshQr(int id) async {
-    final token = await _getToken();
+    final token = await getToken();
     final response = await http.post(
       Uri.parse('$baseUrl/bonuse/customer/refresh-qr/$id/'),
       headers: {
@@ -48,7 +41,7 @@ class CustomerBonus {
 
   Future<Map<String, dynamic>> viewBonusGlasses(
       int userId, int coffeeShopId) async {
-    final token = await _getToken();
+    final token = await getToken();
     final response = await http.get(
       Uri.parse(
           '$baseUrl/bonuse/customer/view-bonus-glasses/$userId/$coffeeShopId/'),
