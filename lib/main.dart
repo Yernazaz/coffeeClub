@@ -6,6 +6,7 @@ import 'package:flutter_app/pages/settings.dart';
 import 'package:flutter_app/pages/best_places.dart';
 import 'package:flutter_app/pages/qr_code.dart';
 import 'package:flutter_app/pages/register_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/pages/coffee_map.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_app/pages/barista_qr_code.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,48 +58,224 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: Size(375, 812),
       builder: (context, child) {
-        return FutureBuilder<String?>(
-          future: checkLoggedIn(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (snapshot.data != null) {
-              print(snapshot.data!);
-              return MaterialApp(
-                home: MainPage(
-                  userRole: snapshot.data!,
-                ), // Navigate to MainPage if logged in
-              );
-            } else {
-              return MaterialApp(
-                home:
-                    RegisterPage(), // Navigate to RegisterPage if not logged in
-              );
-            }
-          },
+        return MaterialApp(
+          home: PermissionCheckScreen(),
         );
       },
     );
   }
 }
 
+class PermissionCheckScreen extends StatefulWidget {
+  @override
+  _PermissionCheckScreenState createState() => _PermissionCheckScreenState();
+}
+
+class _PermissionCheckScreenState extends State<PermissionCheckScreen> {
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPermissions();
+  }
+
+  Future<void> _checkPermissions() async {
+    var status = await Permission.location.status;
+    if (status.isGranted) {
+      _navigateToNextScreen();
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _requestPermissions() async {
+    var status = await Permission.location.request();
+    if (status.isGranted) {
+      _navigateToNextScreen();
+    }
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    setState(() {
+      isLoading = true;
+    });
+    String? userRole = await MyApp().checkLoggedIn();
+    if (userRole != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MainPage(userRole: userRole),
+        ),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RegisterPage(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFFFFFFF),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 345.h,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        color: Color(0xFF4B3832),
+                        padding: EdgeInsets.fromLTRB(20.w, 60.h, 20.w, 70.h),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Добро пожаловать в',
+                              style: GoogleFonts.getFont(
+                                'Roboto Condensed',
+                                fontWeight: FontWeight.w800,
+                                fontSize: 32.sp,
+                                color: Color(0xFFFFFFFF),
+                              ),
+                            ),
+                            Text(
+                              'Coffee club',
+                              style: GoogleFonts.getFont(
+                                'Sanchez',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 60.sp,
+                                color: Color(0xFFFFF4E6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 180.h,
+                      child: SvgPicture.asset(
+                        'assets/vectors/container_x2.svg',
+                        width: MediaQuery.of(context).size.width,
+                        height: 165.5.h,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Positioned(
+                      right: 0,
+                      top: 140.h,
+                      child: Image.asset(
+                        'assets/images/image_15.png',
+                        width: 180.w,
+                        height: 195.h,
+                      ),
+                    ),
+                    Positioned(
+                      right: 130.w,
+                      top: 230.h,
+                      child: SvgPicture.asset(
+                        'assets/vectors/star_11_x2.svg',
+                        width: 11.w,
+                        height: 12.h,
+                      ),
+                    ),
+                    Positioned(
+                      right: 50.w,
+                      top: 180.h,
+                      child: SvgPicture.asset(
+                        'assets/vectors/star_2_x2.svg',
+                        width: 14.w,
+                        height: 15.h,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(31.2.w, 0, 30.5.w, 0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (!isLoading) ...[
+                      SizedBox(height: screenHeight * 0.1),
+                      Text(
+                        'Для доступа к кофейням необходимы разрешения на определение местоположения.',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.getFont(
+                          'Roboto Condensed',
+                          fontWeight: FontWeight.w500,
+                          fontSize: screenHeight * 0.025,
+                          color: Color(0xFF4B3832),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _requestPermissions,
+                        child: Text('Дать разрешение'),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Color(0xFFFFF4E6),
+                          backgroundColor: Color(0xFF4B3832),
+                          textStyle: GoogleFonts.getFont(
+                            'Roboto Condensed',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16.sp,
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 10.h),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                        ),
+                      ),
+                    ] else ...[
+                      SizedBox(height: screenHeight * 0.4),
+                      CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xFF4B3832)),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class MainPage extends StatefulWidget {
   final String userRole;
-  MainPage({required this.userRole});
+  final int selectedIndex;
+
+  MainPage({required this.userRole, this.selectedIndex = 0});
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   static final List<Widget> _customerOptions = <Widget>[
     HomePageWidget(), // Your existing pages
     BestPlaces(),
-    // NotificationsPromotions(),
     CoffeeMap(),
     SettingsPage(),
   ];
@@ -105,6 +283,16 @@ class _MainPageState extends State<MainPage> {
   static final List<Widget> _baristaOptions = <Widget>[
     QRCodeScannerPage(), // Barista's page
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+    // Ensure the selected index is within range
+    if (_selectedIndex >= (_customerOptions.length)) {
+      _selectedIndex = 0;
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -145,12 +333,6 @@ class _MainPageState extends State<MainPage> {
     }
 
     return await Geolocator.getCurrentPosition();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _sendLocationOnLogin();
   }
 
   @override

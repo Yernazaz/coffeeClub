@@ -51,6 +51,9 @@
 <string>This app needs access to your location to show coffee shops nearby.</string>
 <key>NSCameraUsageDescription</key>
 <string>We need to access your camera to scan QR codes</string>
-
+<key>NSPhotoLibraryUsageDescription</key>
+<string>We need access to your photo library to upload images.</string>
+<key>NSCameraUsageDescription</key>
+<string>We need access to your camera to take pictures.</string>
 </dict>
 </plist>

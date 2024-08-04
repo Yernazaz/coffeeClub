@@ -36,76 +36,79 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          QRView(
-            key: qrKey,
-            onQRViewCreated: _onQRViewCreated,
-            overlay: QrScannerOverlayShape(
-              borderColor: Color(0xFF4B3832),
-              borderRadius: 10,
-              borderLength: 30,
-              borderWidth: 10,
-              cutOutSize: 275,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
+              overlay: QrScannerOverlayShape(
+                borderColor: Color(0xFF4B3832),
+                borderRadius: 10,
+                borderLength: 30,
+                borderWidth: 10,
+                cutOutSize: 275,
+              ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(bottom: 100),
-              width: 320,
-              height: 40,
-              child: ElevatedButton(
-                onPressed: () {
-                  controller?.resumeCamera();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF4B3832),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(bottom: 100),
+                width: 320,
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: () {
+                    controller?.resumeCamera();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF4B3832),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                ),
-                child: Text(
-                  'Отсканировать',
-                  style: TextStyle(fontSize: 15, color: Colors.white),
+                  child: Text(
+                    'Отсканировать',
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: SafeArea(
-        child: BottomAppBar(
-          child: Container(
-            height: 50,
-            color: Color(0xFFFFF4E6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.qr_code, color: Colors.brown),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => QRCodeScannerPage(),
-                      ),
-                    );
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.tune, color: Colors.brown),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BaristaSettingsPage(),
-                      ),
-                    );
-                  },
-                )
-              ],
+          ],
+        ),
+        bottomNavigationBar: SafeArea(
+          child: BottomAppBar(
+            child: Container(
+              height: 50,
+              color: Color(0xFFFFF4E6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.qr_code, color: Colors.brown),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => QRCodeScannerPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.tune, color: Colors.brown),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BaristaSettingsPage(),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),

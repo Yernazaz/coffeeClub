@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_app/backend/user/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SmsVerificationPage extends StatefulWidget {
   final String phone;
@@ -19,6 +20,20 @@ class _SmsVerificationPageState extends State<SmsVerificationPage> {
   final TextEditingController _otpController = TextEditingController();
   final AuthService _authService = AuthService();
   bool _isLoading = false;
+  String? password;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPassword();
+  }
+
+  Future<void> _loadPassword() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      password = prefs.getString('user_password');
+    });
+  }
 
   void _verifyOtp() async {
     setState(() {
@@ -26,18 +41,22 @@ class _SmsVerificationPageState extends State<SmsVerificationPage> {
     });
 
     try {
-      final tokens =
-          await _authService.verifyOtp(widget.phone, _otpController.text);
+      if (password == null) {
+        throw Exception('Password not found');
+      }
+
+      final tokens = await _authService.verifyOtp(
+          widget.phone, _otpController.text, password!);
 
       // Navigate to the next page
-      Navigator.pushReplacement(
-        context,
+      Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => MyApp()),
+        (Route<dynamic> route) => false,
       );
     } catch (e) {
       print(e);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to verify OTP')),
+        SnackBar(content: Text('Ошибка при вводе кода!')),
       );
     } finally {
       setState(() {

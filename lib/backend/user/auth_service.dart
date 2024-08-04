@@ -24,7 +24,44 @@ class AuthService {
     }
   }
 
-  Future<Map<String, String>> verifyOtp(String phone, String otp) async {
+  Future<Map<String, String>> login(String phone, String password) async {
+    final url = Uri.parse('$baseUrl/login/');
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'phone': phone,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(utf8.decode(response.bodyBytes));
+
+      // Save user info to Shared Preferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('refresh', data['refresh']);
+      await prefs.setString('access', data['access']);
+      await prefs.setInt('user_id', data['user_id']);
+      await prefs.setString('user_name', data['user_info']['name']);
+      await prefs.setString('user_phone', data['user_info']['phone']);
+      await prefs.setString('user_role', data['user_info']['role']);
+      String profilePic = data['user_info']['profile_pic'] ??
+          'https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg';
+      await prefs.setString('profile_pic', profilePic);
+      return {
+        'refresh': data['refresh'],
+        'access': data['access'],
+      };
+    } else {
+      throw Exception('Failed to login');
+    }
+  }
+
+  Future<Map<String, String>> verifyOtp(
+      String phone, String otp, String password) async {
     final url = Uri.parse('$baseUrl/otp/');
     final response = await http.post(
       url,
@@ -48,11 +85,35 @@ class AuthService {
       await prefs.setString('user_name', data['user_info']['name']);
       await prefs.setString('user_phone', data['user_info']['phone']);
       await prefs.setString('user_role', data['user_info']['role']);
+      String profilePic = data['user_info']['profile_pic'] ??
+          'https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg';
+      await prefs.setString('profile_pic', profilePic);
+      await prefs.setString('profile_pic', profilePic);
+      String token = data['access'];
+      final url = Uri.parse('$baseUrl/set-password/');
+      final response_password = await http.post(
+        url,
+        headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
+        },
+        body: json.encode({
+          'password': password,
+          'confirm_password': password,
+        }),
+      );
 
-      return {
-        'refresh': data['refresh'],
-        'access': data['access'],
-      };
+      if (response_password.statusCode != 200) {
+        throw Exception('Failed to set password');
+      } else {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.remove('user_password');
+        return {
+          'refresh': data['refresh'],
+          'access': data['access'],
+        };
+      }
     } else {
       throw Exception('Failed to verify OTP');
     }
